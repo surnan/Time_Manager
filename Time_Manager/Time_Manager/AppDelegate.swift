@@ -16,13 +16,25 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         
+        //none of the .appearance() auto-fills
+        UINavigationBar.appearance().barTintColor = UIColor.lightRed
+        UINavigationBar.appearance().tintColor = UIColor.white  //color for left/right bar buttons
+        UINavigationBar.appearance().prefersLargeTitles = true
+        
+        UINavigationBar.appearance().titleTextAttributes = [NSAttributedStringKey.foregroundColor: UIColor.white]//NSAttributedStringKey search in help
+        UINavigationBar.appearance().largeTitleTextAttributes = [NSAttributedStringKey.foregroundColor: UIColor.white]
+        
+        
+
+        
+        
+        
+        
         
         window = UIWindow()
         window?.makeKeyAndVisible()
         let navController = UINavigationController(rootViewController: TasksListViewController())
         window?.rootViewController = navController
-        
-        
         return true
     }
 
