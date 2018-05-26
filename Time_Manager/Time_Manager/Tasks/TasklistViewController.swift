@@ -8,10 +8,14 @@
 
 import UIKit
 
-class TasksListViewController: UIViewController {
+class TasksListViewController: UITableViewController {
 
+    var tasks = ["Apple", "Banana", "Peach", "Strawberry", "Pineapple"]
+    
+    //MARK:- Swift UI functions
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.tableView.register(TasksListTableViewCell.self, forCellReuseIdentifier: taskTableID)
         view.backgroundColor = UIColor.yellow
     }
 }
