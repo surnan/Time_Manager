@@ -9,6 +9,6 @@
 import Foundation
 
 let taskTableID = "taskTableID"  //Registers table in TasksListViewUITableView.viewdidload()
-
+let componentTableID = "componentTableID"  //Registers table in ComponentsListViewUITableView.viewdidload()
 
 

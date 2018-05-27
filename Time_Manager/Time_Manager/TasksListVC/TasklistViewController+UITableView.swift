@@ -24,9 +24,10 @@ extension TasksListViewController {
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-       print(tasks[indexPath.row])
-        
-        
+        print(tasks[indexPath.row])
+        let newVC = ComponentsListViewController()
+        newVC.delegate = self
+        navigationController?.pushViewController(newVC, animated: true)
     }
     
     
@@ -37,9 +38,9 @@ extension TasksListViewController {
         deleteAction.backgroundColor = UIColor.red
         return [deleteAction, editAction]
     }
-
     
-
+    
+    
     
     private func handlerEditAction(action: UITableViewRowAction, indexPath: IndexPath) {
         print("edit")
@@ -53,7 +54,7 @@ extension TasksListViewController {
     
     
     override func tableView(_ tableView: UITableView,
-                   leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration?
+                            leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration?
     {
         let closeAction = UIContextualAction(style: .normal, title:  "Close", handler: { (ac:UIContextualAction, view:UIView, success:(Bool) -> Void) in
             print("OK, marked as Closed")
