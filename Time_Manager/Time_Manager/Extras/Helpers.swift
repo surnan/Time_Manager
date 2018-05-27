@@ -6,14 +6,9 @@
 //  Copyright © 2018 admin. All rights reserved.
 //
 
-import UIKit
+import Foundation
 
 let taskTableID = "taskTableID"  //Registers table in TasksListViewUITableView.viewdidload()
 
 
-extension UINavigationController {
-    open override var preferredStatusBarStyle: UIStatusBarStyle {
-        return .lightContent
-}
-}
 

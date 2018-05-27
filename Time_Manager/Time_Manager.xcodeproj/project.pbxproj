@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8428363C20BAFAAD00E3C57E /* UINavigationController+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8428363B20BAFAAD00E3C57E /* UINavigationController+Extension.swift */; };
 		84AC35D720B99C1F00C621E0 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84AC35D620B99C1F00C621E0 /* AppDelegate.swift */; };
 		84AC35D920B99C1F00C621E0 /* TasklistViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84AC35D820B99C1F00C621E0 /* TasklistViewController.swift */; };
 		84AC35DE20B99C2100C621E0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 84AC35DD20B99C2100C621E0 /* Assets.xcassets */; };
@@ -18,6 +19,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		8428363B20BAFAAD00E3C57E /* UINavigationController+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UINavigationController+Extension.swift"; sourceTree = "<group>"; };
 		84AC35D320B99C1F00C621E0 /* Time_Manager.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Time_Manager.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		84AC35D620B99C1F00C621E0 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		84AC35D820B99C1F00C621E0 /* TasklistViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TasklistViewController.swift; sourceTree = "<group>"; };
@@ -85,6 +87,7 @@
 			children = (
 				84AC35EB20B9FF1000C621E0 /* Helpers.swift */,
 				84AC35F020BA040600C621E0 /* UIColor+theme.swift */,
+				8428363B20BAFAAD00E3C57E /* UINavigationController+Extension.swift */,
 			);
 			path = Extras;
 			sourceTree = "<group>";
@@ -163,6 +166,7 @@
 				84AC35D920B99C1F00C621E0 /* TasklistViewController.swift in Sources */,
 				84AC35D720B99C1F00C621E0 /* AppDelegate.swift in Sources */,
 				84AC35F120BA040600C621E0 /* UIColor+theme.swift in Sources */,
+				8428363C20BAFAAD00E3C57E /* UINavigationController+Extension.swift in Sources */,
 				84AC35EA20B9FCFD00C621E0 /* TasklistViewController+UITableView.swift in Sources */,
 				84AC35EC20B9FF1000C621E0 /* Helpers.swift in Sources */,
 			);

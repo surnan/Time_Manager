@@ -23,14 +23,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         UINavigationBar.appearance().titleTextAttributes = [NSAttributedStringKey.foregroundColor: UIColor.white]//NSAttributedStringKey search in help
         UINavigationBar.appearance().largeTitleTextAttributes = [NSAttributedStringKey.foregroundColor: UIColor.white]
-        
-        
 
-        
-        
-        
-        
-        
         window = UIWindow()
         window?.makeKeyAndVisible()
         let navController = UINavigationController(rootViewController: TasksListViewController())
