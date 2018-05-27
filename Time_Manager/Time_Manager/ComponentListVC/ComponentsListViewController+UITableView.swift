@@ -18,14 +18,7 @@ extension ComponentsListViewController {
     
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-//        let tempCell = UITableViewCell()
-//        tempCell.textLabel?.text = components[indexPath.row]
-
-        
         let tempCell = tableView.dequeueReusableCell(withIdentifier: componentTableID) as! ComponentsListTableViewCell
-        
-        
-        
         tempCell.nameLabel.text = components[indexPath.row]
         tempCell.completionLabel.text = "Completion_Label"
         return tempCell

@@ -12,6 +12,7 @@
 		8428364220BB5EDF00E3C57E /* ComponentsListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8428364120BB5EDF00E3C57E /* ComponentsListViewController.swift */; };
 		8428364520BB645300E3C57E /* ComponentsListViewController+UITableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8428364420BB645300E3C57E /* ComponentsListViewController+UITableView.swift */; };
 		8428364720BB65B900E3C57E /* ComponentsListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8428364620BB65B900E3C57E /* ComponentsListTableViewCell.swift */; };
+		8428364920BB78B400E3C57E /* CreateComponentsListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8428364820BB78B400E3C57E /* CreateComponentsListViewController.swift */; };
 		84AC35D720B99C1F00C621E0 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84AC35D620B99C1F00C621E0 /* AppDelegate.swift */; };
 		84AC35D920B99C1F00C621E0 /* TasklistViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84AC35D820B99C1F00C621E0 /* TasklistViewController.swift */; };
 		84AC35DE20B99C2100C621E0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 84AC35DD20B99C2100C621E0 /* Assets.xcassets */; };
@@ -28,6 +29,7 @@
 		8428364120BB5EDF00E3C57E /* ComponentsListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComponentsListViewController.swift; sourceTree = "<group>"; };
 		8428364420BB645300E3C57E /* ComponentsListViewController+UITableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ComponentsListViewController+UITableView.swift"; sourceTree = "<group>"; };
 		8428364620BB65B900E3C57E /* ComponentsListTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComponentsListTableViewCell.swift; sourceTree = "<group>"; };
+		8428364820BB78B400E3C57E /* CreateComponentsListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateComponentsListViewController.swift; sourceTree = "<group>"; };
 		84AC35D320B99C1F00C621E0 /* Time_Manager.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Time_Manager.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		84AC35D620B99C1F00C621E0 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		84AC35D820B99C1F00C621E0 /* TasklistViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TasklistViewController.swift; sourceTree = "<group>"; };
@@ -66,6 +68,7 @@
 				8428364120BB5EDF00E3C57E /* ComponentsListViewController.swift */,
 				8428364420BB645300E3C57E /* ComponentsListViewController+UITableView.swift */,
 				8428364620BB65B900E3C57E /* ComponentsListTableViewCell.swift */,
+				8428364820BB78B400E3C57E /* CreateComponentsListViewController.swift */,
 			);
 			path = ComponentListVC;
 			sourceTree = "<group>";
@@ -91,7 +94,6 @@
 			children = (
 				84AC35D620B99C1F00C621E0 /* AppDelegate.swift */,
 				84AC35E820B9FC7800C621E0 /* TasksListVC */,
-				8428363D20BB34B000E3C57E /* CreateTaskViewController.swift */,
 				8428364320BB62FD00E3C57E /* ComponentListVC */,
 				8428364020BB34E400E3C57E /* Support Files */,
 				84AC35EF20BA03F000C621E0 /* Extras */,
@@ -106,6 +108,7 @@
 				84AC35D820B99C1F00C621E0 /* TasklistViewController.swift */,
 				84AC35E920B9FCFD00C621E0 /* TasklistViewController+UITableView.swift */,
 				84AC35ED20B9FFC000C621E0 /* TasksListTableViewCell.swift */,
+				8428363D20BB34B000E3C57E /* CreateTaskViewController.swift */,
 			);
 			path = TasksListVC;
 			sourceTree = "<group>";
@@ -190,6 +193,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8428364920BB78B400E3C57E /* CreateComponentsListViewController.swift in Sources */,
 				84AC35EE20B9FFC000C621E0 /* TasksListTableViewCell.swift in Sources */,
 				84AC35D920B99C1F00C621E0 /* TasklistViewController.swift in Sources */,
 				8428364520BB645300E3C57E /* ComponentsListViewController+UITableView.swift in Sources */,

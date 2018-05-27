@@ -19,7 +19,7 @@ class ComponentsListViewController: UITableViewController {
     private func setupNavBar(){
         navigationItem.title = "Components List VC"
         navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Cancel", style: .plain, target: self, action: #selector(handlerLeft))
-        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Save", style: .done, target: self, action: #selector(handlerRight))
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "ADD", style: .done, target: self, action: #selector(handlerRight))
     }
     
     @objc private func handlerLeft(){
@@ -29,7 +29,10 @@ class ComponentsListViewController: UITableViewController {
     
     @objc private func handlerRight(){
         print("Handle Right")
-        navigationController?.popViewController(animated: true)
+//        navigationController?.popViewController(animated: true)
+        let newVC = CreateComponentsListViewController()
+        newVC.delegate = self
+        navigationController?.pushViewController(newVC, animated: true)
     }
     
     //MARK:- Built In Swift Functions
@@ -44,3 +47,22 @@ class ComponentsListViewController: UITableViewController {
 }
 
 
+/*
+ //MARK:- UI
+ private func setupNavigationBar(){
+ navigationItem.title = "Hello World"
+ navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Cncel", style: .plain, target: self, action: #selector(handleLeftBarButton))
+ navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Add", style: .plain, target: self, action: #selector(handleRightBarButton))
+ }
+ 
+ @objc func handleLeftBarButton(){
+ print("left button pressed")
+ }
+ 
+ @objc private func handleRightBarButton(){
+ print("right button pressed")
+ let newVC = CreateTaskViewController()
+ newVC.delegate = self
+ navigationController?.pushViewController(newVC, animated: true)
+ }
+ */
