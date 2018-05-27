@@ -25,6 +25,8 @@ extension TasksListViewController {
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
        print(tasks[indexPath.row])
+        
+        
     }
     
     
@@ -41,6 +43,11 @@ extension TasksListViewController {
     
     private func handlerEditAction(action: UITableViewRowAction, indexPath: IndexPath) {
         print("edit")
+        
+        let newVC = CreateTaskViewController()
+        newVC.delegate = self
+        navigationController?.pushViewController(newVC, animated: true)
+        
     }
     
     

@@ -18,7 +18,7 @@ class TasksListViewController: UITableViewController {
     private func setupNavigationBar(){
         navigationItem.title = "Hello World"
         navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Cncel", style: .plain, target: self, action: #selector(handleLeftBarButton))
-        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Add", style: .plain, target: self, action: #selector(handleLeftBarButton))
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Add", style: .plain, target: self, action: #selector(handleRightBarButton))
     }
     
     @objc func handleLeftBarButton(){
@@ -26,7 +26,10 @@ class TasksListViewController: UITableViewController {
     }
 
     @objc private func handleRightBarButton(){
-        print("left button pressed")
+        print("right button pressed")
+        let newVC = CreateTaskViewController()
+        newVC.delegate = self
+        navigationController?.pushViewController(newVC, animated: true)
     }
     
     
