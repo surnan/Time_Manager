@@ -18,18 +18,18 @@ class CreateComponentsListViewController: UIViewController {
     //MARK:- UI Functions
     private func setupNavBar(){
         navigationItem.title = "Create Component VC"
-        navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Cancel", style: .plain, target: self, action: #selector(handlerLeft))
-        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Save", style: .done, target: self, action: #selector(handlerRight))
+        navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Cancel", style: .plain, target: self, action: #selector(handleLeftBarButton))
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Save", style: .done, target: self, action: #selector(handleRightBarButton))
         
     }
     
-    @objc private func handlerLeft(){
+    @objc private func handleLeftBarButton(){
         print("Handle Left")
         navigationController?.popViewController(animated: true)
         
     }
     
-    @objc private func handlerRight(){
+    @objc private func handleRightBarButton(){
         print("Handle Right")
         navigationController?.popViewController(animated: true)
     }
