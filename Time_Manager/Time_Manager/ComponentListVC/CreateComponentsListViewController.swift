@@ -60,7 +60,7 @@ class CreateComponentsListViewController: UIViewController {
         nameTextField.leftAnchor.constraint(equalTo: nameLabel.rightAnchor, constant: 20).isActive = true
         nameTextField.topAnchor.constraint(equalTo: nameLabel.topAnchor).isActive = true
         nameTextField.heightAnchor.constraint(equalTo: nameLabel.heightAnchor).isActive = true
-        nameTextField.widthAnchor.constraint(equalToConstant: 150).isActive = true
+        nameTextField.widthAnchor.constraint(equalToConstant: 200).isActive = true
     }
     
 
