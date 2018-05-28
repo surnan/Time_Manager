@@ -23,11 +23,11 @@ class CreateComponentsListViewController: UIViewController {
     
     var nameTextField: UITextField = {
         let tempTextField = UITextField()
-        tempTextField.backgroundColor = UIColor.white
-        tempTextField.textAlignment = .center
+//        tempTextField.backgroundColor = UIColor.white
+//        tempTextField.textAlignment = .center
         tempTextField.clearsOnBeginEditing = true
-//      tempTextField.placeholder = "Please enter name here"
-        tempTextField.text = " "  //work-around to have cursor begin in middle of nameTextField
+      tempTextField.placeholder = "Please enter name here"
+//        tempTextField.text = " "  //work-around to have cursor begin in middle of nameTextField
         tempTextField.translatesAutoresizingMaskIntoConstraints = false
         return tempTextField
     }()
@@ -71,7 +71,7 @@ class CreateComponentsListViewController: UIViewController {
         super.viewDidLoad()
         setupNavBar()
         setupUserFieldsforDataEntry()
-        view.backgroundColor = UIColor.green
+        view.backgroundColor = UIColor.lightBlue
     }
 }
 
