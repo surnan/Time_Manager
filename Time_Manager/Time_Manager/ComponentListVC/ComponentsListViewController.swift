@@ -39,9 +39,7 @@ class ComponentsListViewController: UITableViewController {
         super.viewDidLoad()
         setupNavBar()
         view.backgroundColor = UIColor.lightBlue
-        
         tableView.register(ComponentsListTableViewCell.self, forCellReuseIdentifier: componentTableID)
-        
     }
 }
 

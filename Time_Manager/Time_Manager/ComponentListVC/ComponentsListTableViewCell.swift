@@ -27,18 +27,13 @@ class ComponentsListTableViewCell: UITableViewCell {
         [nameLabel, completionLabel].forEach{addSubview($0)}
         [nameLabel, completionLabel].forEach{$0.translatesAutoresizingMaskIntoConstraints = false}
 
-        
         nameLabel.leftAnchor.constraint(equalTo: leftAnchor, constant: 30).isActive = true
         nameLabel.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
-        
         completionLabel.rightAnchor.constraint(equalTo: rightAnchor, constant: -50).isActive = true
         completionLabel.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
-        
     }
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
-    
 }

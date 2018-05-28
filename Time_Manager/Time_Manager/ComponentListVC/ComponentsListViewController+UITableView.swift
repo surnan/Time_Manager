@@ -54,7 +54,6 @@ extension ComponentsListViewController {
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return components.count
     }
-    
 }
 
 
