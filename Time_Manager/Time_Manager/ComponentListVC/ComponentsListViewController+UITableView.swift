@@ -16,6 +16,33 @@ import UIKit
 
 extension ComponentsListViewController {
     
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let newVC = CreateComponentsListViewController()
+        newVC.delegate = self
+        navigationController?.pushViewController(newVC, animated: true)
+    }
+
+
+    override func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
+        let editAction = UITableViewRowAction(style: .normal, title: "Edit", handler: handlerEditAction)
+        let deleteAction = UITableViewRowAction(style: .normal, title: "Cancel", handler: handlerDeleteAction)
+        editAction.backgroundColor = UIColor.blue
+        deleteAction.backgroundColor = UIColor.red
+        return[deleteAction, editAction]
+    }
+    
+    
+    private func handlerEditAction(tableView: UITableViewRowAction, indexPath: IndexPath){
+        print("edit action chosen")
+        let newVC = CreateComponentsListViewController()
+        newVC.delegate = self
+        navigationController?.pushViewController(newVC, animated: true)
+    }
+
+    private func handlerDeleteAction(tableView: UITableViewRowAction, indexPath: IndexPath){
+        print("delete action chosen")
+    }
+    
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let tempCell = tableView.dequeueReusableCell(withIdentifier: componentTableID) as! ComponentsListTableViewCell
@@ -30,3 +57,12 @@ extension ComponentsListViewController {
     
 }
 
+
+/*
+ @objc private func handlerRight(){
+ print("Handle Right")
+ let newVC = CreateComponentsListViewController()
+ newVC.delegate = self
+ navigationController?.pushViewController(newVC, animated: true)
+ }
+*/

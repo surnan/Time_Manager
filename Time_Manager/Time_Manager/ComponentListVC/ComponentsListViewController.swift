@@ -29,7 +29,6 @@ class ComponentsListViewController: UITableViewController {
     
     @objc private func handlerRight(){
         print("Handle Right")
-//        navigationController?.popViewController(animated: true)
         let newVC = CreateComponentsListViewController()
         newVC.delegate = self
         navigationController?.pushViewController(newVC, animated: true)
