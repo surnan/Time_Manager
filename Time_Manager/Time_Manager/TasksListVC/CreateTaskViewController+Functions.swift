@@ -7,11 +7,51 @@
 //
 
 import UIKit
+import CoreData
 
 extension CreateTaskViewController  {
+
+    
+    //MARK:- UI Functions
+    private func setupNavBar(){
+        navigationItem.title = "Create Task VC"
+        navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Cancel", style: .plain, target: self, action: #selector(handleLeftBarButton))
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Save", style: .done, target: self, action: #selector(handleRightBarButton))
+    }
+    
+    @objc private func handleLeftBarButton(){
+        print("Handle Left")
+        navigationController?.popViewController(animated: true)
+    }
+    
+    @objc private func handleRightBarButton(){
+        print("Handle Right")
+        
+        let myPersistentContainer = CoreDataManager.shared.persistentContainer
+        let myViewContext = myPersistentContainer.viewContext
+        let myTaskItem = NSEntityDescription.insertNewObject(forEntityName: "TaskItem", into: myViewContext)
+        myTaskItem.setValue(nameTextField.text, forKey: "name")
+        do {
+            try myViewContext.save()
+            delegate?.addNewTaskToTableView(myTaskItem: myTaskItem as! TaskItem)
+        } catch let saveErr {
+            print("Problems saving new Task: \(saveErr)")
+        }
+        navigationController?.popViewController(animated: true)
+    }
+
+    
+    //MARK:- Built In Swift Functions
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        setupNavBar()
+        setupUserFieldsforDataEntry()
+        view.backgroundColor = UIColor.lightYellow
+    }
+    
+    
     //MARK: Setting up Fields for User Entry
     private func setupUserFieldsforDataEntry(){
-        
         sundayLabel = setupDayLabel(label: sundayLabel, name: "Sunday"); sundaySwitch = setupDaySwitch(switch: sundaySwitch)
         mondayLabel = setupDayLabel(label: mondayLabel, name: "Monday"); mondaySwitch = setupDaySwitch(switch: mondaySwitch)
         tuesdayLabel = setupDayLabel(label: tuesdayLabel, name: "Tuesday"); tuesdaySwitch = setupDaySwitch(switch: tuesdaySwitch)
@@ -41,13 +81,13 @@ extension CreateTaskViewController  {
         timeDatePicker.topAnchor.constraint(equalTo: timeLabel.bottomAnchor, constant: 10).isActive = true
         timeDatePicker.heightAnchor.constraint(equalToConstant: 90).isActive = true
         
-
+        
         sundaySwitch.centerXAnchor.constraint(equalTo: view.centerXAnchor, constant: 30).isActive = true
         sundaySwitch.topAnchor.constraint(equalTo: timeDatePicker.bottomAnchor, constant: 30).isActive = true
         
         let verticalSpacer: CGFloat = 20
         let horizontalSpacer: CGFloat = -20
-
+        
         mondaySwitch.placeUnderneath(aboveSwitch: sundaySwitch, spacing: verticalSpacer)
         tuesdaySwitch.placeUnderneath(aboveSwitch: mondaySwitch, spacing: (verticalSpacer))
         wednesdaySwitch.placeUnderneath(aboveSwitch: tuesdaySwitch, spacing: (verticalSpacer))
@@ -62,34 +102,5 @@ extension CreateTaskViewController  {
         thursdayLabel.placeLeftofSwitch(thatSwitch: thursdaySwitch, spacing: horizontalSpacer)
         fridayLabel.placeLeftofSwitch(thatSwitch: fridaySwitch, spacing: horizontalSpacer)
         saturdayLabel.placeLeftofSwitch(thatSwitch: saturdaySwitch, spacing: horizontalSpacer)
-        
-        
-    }
-    
-    //MARK:- UI Functions
-    private func setupNavBar(){
-        navigationItem.title = "Create Task VC"
-        navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Cancel", style: .plain, target: self, action: #selector(handleLeftBarButton))
-        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Save", style: .done, target: self, action: #selector(handleRightBarButton))
-    }
-    
-    @objc private func handleLeftBarButton(){
-        print("Handle Left")
-        navigationController?.popViewController(animated: true)
-    }
-    
-    @objc private func handleRightBarButton(){
-        print("Handle Right")
-        navigationController?.popViewController(animated: true)
-    }
-    
-    
-    
-    //MARK:- Built In Swift Functions
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        setupNavBar()
-        setupUserFieldsforDataEntry()
-        view.backgroundColor = UIColor.lightYellow
     }
 }

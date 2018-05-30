@@ -20,7 +20,7 @@ struct CoreDataManager {
                 fatalError("Loading of store failed: \(err)")
             }
         }
-        let context = myContainer.viewContext
+        let context = myContainer.viewContext //do we need this line??
         return myContainer
     }()
 }

@@ -8,6 +8,10 @@
 
 import UIKit
 
+protocol manipulatingTaskListViewController {
+    func addNewTaskToTableView(myTaskItem: TaskItem)
+    func editExistingTaskOnTableView(myTaskItem: TaskItem)
+}
 
 class CreateTaskViewController: UIViewController {
     
@@ -62,6 +66,8 @@ class CreateTaskViewController: UIViewController {
 
     var sundaySwitch = UISwitch(), mondaySwitch = UISwitch(), tuesdaySwitch = UISwitch(), wednesdaySwitch = UISwitch(),
         thursdaySwitch = UISwitch(), fridaySwitch = UISwitch(), saturdaySwitch = UISwitch()
+    
+    
 }
 
 

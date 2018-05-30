@@ -7,12 +7,20 @@
 //
 
 import UIKit
+import CoreData
 
-class TasksListViewController: UITableViewController {
-
-    var tasks = ["Apple", "Banana", "Peach", "Strawberry", "Pineapple"]
+class TasksListViewController: UITableViewController, manipulatingTaskListViewController {
     
+    func addNewTaskToTableView(myTaskItem: TaskItem) {
+        tasks.append(myTaskItem)
+        tableView.reloadData()
+    }
     
+    func editExistingTaskOnTableView(myTaskItem: TaskItem) {
+        print("edit")
+    }
+    
+    var tasks = [TaskItem]()
     
     //MARK:- UI
     private func setupNavigationBar(){
@@ -23,9 +31,11 @@ class TasksListViewController: UITableViewController {
     
     @objc func handleLeftBarButton(){
         print("left button pressed")
+        tableView.reloadData()
     }
-
+    
     @objc private func handleRightBarButton(){
+        //Add/Save
         print("right button pressed")
         let newVC = CreateTaskViewController()
         newVC.delegate = self
@@ -37,6 +47,16 @@ class TasksListViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupNavigationBar()
+     
+        //var tasks = [TaskItem]()
+        let myPersistentContainer = CoreDataManager.shared.persistentContainer
+        let myViewContext = myPersistentContainer.viewContext
+        let fetchRequest = NSFetchRequest<TaskItem>(entityName: "TaskItem")
+        do {
+            tasks = try myViewContext.fetch(fetchRequest)
+        } catch let fetchErr {
+            fatalError("Unable to load task data from ViewDidLoad.fetchRequest  \(fetchErr)")
+        }
         self.tableView.register(TasksListTableViewCell.self, forCellReuseIdentifier: taskTableID)
         view.backgroundColor = UIColor.yellow
     }

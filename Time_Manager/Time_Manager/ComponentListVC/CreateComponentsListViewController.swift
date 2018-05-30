@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import CoreData
 
 
 
@@ -14,7 +15,7 @@ class CreateComponentsListViewController: UIViewController {
     var delegate: ComponentsListViewController?
     
     var nameLabel: UILabel = {
-       let tempLabel = UILabel()
+        let tempLabel = UILabel()
         tempLabel.text = "Name: "
         tempLabel.font = UIFont.boldSystemFont(ofSize: 25)
         tempLabel.translatesAutoresizingMaskIntoConstraints = false
@@ -23,11 +24,11 @@ class CreateComponentsListViewController: UIViewController {
     
     var nameTextField: UITextField = {
         let tempTextField = UITextField()
-//        tempTextField.backgroundColor = UIColor.white
-//        tempTextField.textAlignment = .center
+        //        tempTextField.backgroundColor = UIColor.white
+        //        tempTextField.textAlignment = .center
         tempTextField.clearsOnBeginEditing = true
-      tempTextField.placeholder = "Please enter name here"
-//        tempTextField.text = " "  //work-around to have cursor begin in middle of nameTextField
+        tempTextField.placeholder = "Please enter name here"
+        //        tempTextField.text = " "  //work-around to have cursor begin in middle of nameTextField
         tempTextField.translatesAutoresizingMaskIntoConstraints = false
         return tempTextField
     }()
@@ -48,9 +49,36 @@ class CreateComponentsListViewController: UIViewController {
     
     @objc private func handleRightBarButton(){
         print("Handle Right")
+     
+//        let persistentContainer = CoreDataManager.shared.persistentContainer
+//        persistentContainer.loadPersistentStores { (storeDescription, error) in
+//            if let err = error {
+//                fatalError("Loading of store failed \(err)")
+//            }
+//        }
+//        
+//        let myContext = persistentContainer.viewContext
+//        let tempComponentItem = NSEntityDescription.insertNewObject(forEntityName: "TaskItem", into: myContext)
+//     
+//        tempComponentItem.setValue(nameTextField.text, forKey: "name")
+//
+//
+//        do {
+//            try myContext.save()
+//        } catch let savingError {
+//            print("Unable to save changes \(savingError)")
+//        }
+        
+        
         navigationController?.popViewController(animated: true)
+        
+        
     }
     
+
+   
+    
+
     //MARK: Setting up Fields for User Entry
     private func setupUserFieldsforDataEntry(){
         [nameLabel, nameTextField].forEach{view.addSubview($0)}
@@ -63,7 +91,7 @@ class CreateComponentsListViewController: UIViewController {
         nameTextField.widthAnchor.constraint(equalToConstant: 200).isActive = true
     }
     
-
+    
     
     
     //MARK:- Built In Swift Functions

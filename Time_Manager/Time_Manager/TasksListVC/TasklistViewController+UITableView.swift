@@ -14,8 +14,13 @@ import UIKit
 extension TasksListViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let currentTableViewCell = tableView.dequeueReusableCell(withIdentifier: taskTableID) as! TasksListTableViewCell
+        
         let tempTask = tasks[indexPath.row]
-        currentTableViewCell.nameLabel.text = tempTask
+        
+        currentTableViewCell.nameLabel.text = tempTask.name
+        currentTableViewCell.timeLabel.text = "Now"
+        currentTableViewCell.completionLabel.text = "True"
+        
         return currentTableViewCell
     }
     
