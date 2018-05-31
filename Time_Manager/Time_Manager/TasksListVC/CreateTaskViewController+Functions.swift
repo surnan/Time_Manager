@@ -11,12 +11,30 @@ import CoreData
 
 extension CreateTaskViewController  {
 
+//    var delegate: TasksListViewController?
+//
+//    var currentTaskItem: TaskItem? {
+//        didSet {
+//            nameTextField.text = currentTaskItem?.name
+//        }
+//    }
+    
     
     //MARK:- UI Functions
+    
+    
+//    private func setupRightButton()->(String, )
     private func setupNavBar(){
-        navigationItem.title = "Create Task VC"
+        let rightButtonText: String
+        if currentTaskItem != nil {
+            rightButtonText = "Save Changes"
+            navigationItem.title = "Editing Task"
+        } else {
+            rightButtonText = "Add"
+            navigationItem.title = "Create new task"
+        }
         navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Cancel", style: .plain, target: self, action: #selector(handleLeftBarButton))
-        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Save", style: .done, target: self, action: #selector(handleRightBarButton))
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: rightButtonText, style: .done, target: self, action:#selector(handleRightBarButton))
     }
     
     @objc private func handleLeftBarButton(){
@@ -24,9 +42,8 @@ extension CreateTaskViewController  {
         navigationController?.popViewController(animated: true)
     }
     
+    
     @objc private func handleRightBarButton(){
-        print("Handle Right")
-        
         let myPersistentContainer = CoreDataManager.shared.persistentContainer
         let myViewContext = myPersistentContainer.viewContext
         let myTaskItem = NSEntityDescription.insertNewObject(forEntityName: "TaskItem", into: myViewContext)
@@ -49,7 +66,7 @@ extension CreateTaskViewController  {
         view.backgroundColor = UIColor.lightYellow
     }
     
-    
+
     //MARK: Setting up Fields for User Entry
     private func setupUserFieldsforDataEntry(){
         sundayLabel = setupDayLabel(label: sundayLabel, name: "Sunday"); sundaySwitch = setupDaySwitch(switch: sundaySwitch)

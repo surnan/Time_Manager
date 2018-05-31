@@ -18,6 +18,12 @@ class CreateTaskViewController: UIViewController {
     
     var delegate: TasksListViewController?
     
+    var currentTaskItem: TaskItem? {
+        didSet {
+            nameTextField.text = currentTaskItem?.name
+        }
+    }
+    
     var nameLabel: UILabel = {
         let tempLabel = UILabel()
         tempLabel.text = "Name: "
@@ -60,6 +66,8 @@ class CreateTaskViewController: UIViewController {
         tempSwitch.isOn = false
         return tempSwitch
     }
+    
+    
     
     var sundayLabel = UILabel(), mondayLabel = UILabel(), tuesdayLabel = UILabel(), wednesdayLabel = UILabel(),
         thursdayLabel = UILabel(), fridayLabel = UILabel(), saturdayLabel = UILabel()
