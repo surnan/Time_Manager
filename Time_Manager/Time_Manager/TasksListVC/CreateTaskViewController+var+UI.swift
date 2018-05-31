@@ -15,9 +15,8 @@ protocol manipulatingTaskListViewController {
 
 class CreateTaskViewController: UIViewController {
     
-    
-    var delegate: TasksListViewController?
-    
+    var delegate: manipulatingTaskListViewController?
+
     var currentTaskItem: TaskItem? {
         didSet {
             nameTextField.text = currentTaskItem?.name
