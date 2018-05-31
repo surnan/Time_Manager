@@ -44,16 +44,35 @@ extension CreateTaskViewController  {
     
     
     @objc private func handleRightBarButton(){
-        let myPersistentContainer = CoreDataManager.shared.persistentContainer
-        let myViewContext = myPersistentContainer.viewContext
-        let myTaskItem = NSEntityDescription.insertNewObject(forEntityName: "TaskItem", into: myViewContext)
-        myTaskItem.setValue(nameTextField.text, forKey: "name")
-        do {
-            try myViewContext.save()
-            delegate?.addNewTaskToTableView(myTaskItem: myTaskItem as! TaskItem)
-        } catch let saveErr {
-            print("Problems saving new Task: \(saveErr)")
+        
+        if currentTaskItem == nil {
+            let myViewContext = CoreDataManager.shared.persistentContainer.viewContext
+            let myTaskItem = NSEntityDescription.insertNewObject(forEntityName: "TaskItem", into: myViewContext)
+            myTaskItem.setValue(nameTextField.text, forKey: "name")
+            do {
+                try myViewContext.save()
+                delegate?.addNewTaskToTableView(myTaskItem: myTaskItem as! TaskItem)
+            } catch let saveErr {
+                print("Problems saving new Task: \(saveErr)")
+            }
+            
+        } else {
+            let myViewContext = CoreDataManager.shared.persistentContainer.viewContext
+
+
+//            myViewContext.delete(currentTaskItem!)
+            
+            currentTaskItem?.name = nameTextField.text
+            delegate?.editExistingTaskOnTableView(myTaskItem: currentTaskItem!)
+            
+            
+            do {
+                try myViewContext.save()
+            } catch let editTaskError {
+                print("EditTaskError \(editTaskError)")
+            }
         }
+        
         navigationController?.popViewController(animated: true)
     }
 

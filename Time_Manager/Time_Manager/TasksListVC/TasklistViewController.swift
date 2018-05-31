@@ -17,7 +17,7 @@ class TasksListViewController: UITableViewController, manipulatingTaskListViewCo
     }
     
     func editExistingTaskOnTableView(myTaskItem: TaskItem) {
-        print("edit")
+        tableView.reloadData()
     }
     
     var tasks = [TaskItem]()
