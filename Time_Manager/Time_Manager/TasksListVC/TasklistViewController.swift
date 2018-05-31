@@ -13,11 +13,14 @@ class TasksListViewController: UITableViewController, manipulatingTaskListViewCo
     
     func addNewTaskToTableView(myTaskItem: TaskItem) {
         tasks.append(myTaskItem)
-        tableView.reloadData()
+        let myIndexPath = IndexPath(row: tasks.count - 1, section: 0)
+        tableView.insertRows(at: [myIndexPath], with: .left)
     }
     
     func editExistingTaskOnTableView(myTaskItem: TaskItem) {
-        tableView.reloadData()
+        let currentRow = tasks.index(of: myTaskItem)
+        let myIndexPath = IndexPath(row: currentRow!, section: 0)
+        tableView.reloadRows(at: [myIndexPath], with: .middle)
     }
     
     var tasks = [TaskItem]()

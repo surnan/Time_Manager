@@ -49,8 +49,15 @@ extension TasksListViewController {
         context.delete(currentTask)
         do {
             try context.save()
+            
+//            tasks.remove(at: indexPath.row)
+//            tableView.reloadData()
+
+
             tasks.remove(at: indexPath.row)
-            tableView.reloadData()
+            tableView.deleteRows(at: [indexPath], with: .fade)
+
+
         } catch let delError {
             print("Unable to delete task \(delError)")
         }
