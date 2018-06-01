@@ -26,9 +26,10 @@ extension TasksListViewController {
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        print(tasks[indexPath.row])
+//        print(tasks[indexPath.row])
         let newVC = ComponentsListViewController()
         newVC.delegate = self
+        newVC.currentTask = tasks[indexPath.row]
         navigationController?.pushViewController(newVC, animated: true)
     }
     
@@ -49,15 +50,8 @@ extension TasksListViewController {
         context.delete(currentTask)
         do {
             try context.save()
-            
-//            tasks.remove(at: indexPath.row)
-//            tableView.reloadData()
-
-
             tasks.remove(at: indexPath.row)
             tableView.deleteRows(at: [indexPath], with: .fade)
-
-
         } catch let delError {
             print("Unable to delete task \(delError)")
         }

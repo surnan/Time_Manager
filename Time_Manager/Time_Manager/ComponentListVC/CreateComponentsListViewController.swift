@@ -9,10 +9,21 @@
 import UIKit
 import CoreData
 
+protocol manipulatingComponentsListViewController {
+    func addNewComponentToTableView(myComponentItem: ComponentItem)
+    func editExistingComponentOnTableView(myComponentItem: ComponentItem)
+}
 
 
 class CreateComponentsListViewController: UIViewController {
-    var delegate: ComponentsListViewController?
+    var delegate: manipulatingComponentsListViewController?
+    
+    var currentComponentItem: ComponentItem? {
+        didSet {
+          nameTextField.text = currentComponentItem?.name
+        }
+    }
+    
     
     var nameLabel: UILabel = {
         let tempLabel = UILabel()
@@ -49,34 +60,17 @@ class CreateComponentsListViewController: UIViewController {
     
     @objc private func handleRightBarButton(){
         print("Handle Right")
-     
-//        let persistentContainer = CoreDataManager.shared.persistentContainer
-//        persistentContainer.loadPersistentStores { (storeDescription, error) in
-//            if let err = error {
-//                fatalError("Loading of store failed \(err)")
-//            }
-//        }
-//        
-//        let myContext = persistentContainer.viewContext
-//        let tempComponentItem = NSEntityDescription.insertNewObject(forEntityName: "TaskItem", into: myContext)
-//     
-//        tempComponentItem.setValue(nameTextField.text, forKey: "name")
-//
-//
-//        do {
-//            try myContext.save()
-//        } catch let savingError {
-//            print("Unable to save changes \(savingError)")
-//        }
-        
-        
+        let myContext = CoreDataManager.shared.persistentContainer.viewContext
+        let tempObject = NSEntityDescription.insertNewObject(forEntityName: "ComponentItem", into: myContext)
+        tempObject.setValue(nameTextField.text, forKey: "name")
+        do {
+            try myContext.save()
+            delegate?.addNewComponentToTableView(myComponentItem: tempObject as! ComponentItem)
+        } catch let unableAddComponentErr {
+            print("Unable to save Component \(unableAddComponentErr)")
+        }
         navigationController?.popViewController(animated: true)
-        
-        
     }
-    
-
-   
     
 
     //MARK: Setting up Fields for User Entry
@@ -91,9 +85,7 @@ class CreateComponentsListViewController: UIViewController {
         nameTextField.widthAnchor.constraint(equalToConstant: 200).isActive = true
     }
     
-    
-    
-    
+
     //MARK:- Built In Swift Functions
     override func viewDidLoad() {
         super.viewDidLoad()

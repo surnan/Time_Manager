@@ -52,8 +52,7 @@ class TasksListViewController: UITableViewController, manipulatingTaskListViewCo
         setupNavigationBar()
      
         //var tasks = [TaskItem]()
-        let myPersistentContainer = CoreDataManager.shared.persistentContainer
-        let myViewContext = myPersistentContainer.viewContext
+        let myViewContext = CoreDataManager.shared.persistentContainer.viewContext
         let fetchRequest = NSFetchRequest<TaskItem>(entityName: "TaskItem")
         do {
             tasks = try myViewContext.fetch(fetchRequest)

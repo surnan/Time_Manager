@@ -58,21 +58,14 @@ extension CreateTaskViewController  {
             
         } else {
             let myViewContext = CoreDataManager.shared.persistentContainer.viewContext
-
-
-//            myViewContext.delete(currentTaskItem!)
-            
             currentTaskItem?.name = nameTextField.text
             delegate?.editExistingTaskOnTableView(myTaskItem: currentTaskItem!)
-            
-            
             do {
                 try myViewContext.save()
             } catch let editTaskError {
                 print("EditTaskError \(editTaskError)")
             }
         }
-        
         navigationController?.popViewController(animated: true)
     }
 
