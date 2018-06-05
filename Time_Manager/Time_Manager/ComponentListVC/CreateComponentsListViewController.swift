@@ -17,6 +17,7 @@ protocol manipulatingComponentsListViewController {
 
 class CreateComponentsListViewController: UIViewController {
     var delegate: manipulatingComponentsListViewController?
+    var parentTask: TaskItem?
     
     var currentComponentItem: ComponentItem? {
         didSet {
