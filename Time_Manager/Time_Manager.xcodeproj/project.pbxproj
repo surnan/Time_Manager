@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		840478B320C7550800D4FE53 /* ComponentDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 840478B220C7550800D4FE53 /* ComponentDetailsViewController.swift */; };
 		8428363C20BAFAAD00E3C57E /* UINavigationController+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8428363B20BAFAAD00E3C57E /* UINavigationController+Extension.swift */; };
 		8428363E20BB34B000E3C57E /* CreateTaskViewController+var+UI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8428363D20BB34B000E3C57E /* CreateTaskViewController+var+UI.swift */; };
 		8428364220BB5EDF00E3C57E /* ComponentsListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8428364120BB5EDF00E3C57E /* ComponentsListViewController.swift */; };
@@ -28,6 +29,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		840478B220C7550800D4FE53 /* ComponentDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComponentDetailsViewController.swift; sourceTree = "<group>"; };
 		8428363B20BAFAAD00E3C57E /* UINavigationController+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UINavigationController+Extension.swift"; sourceTree = "<group>"; };
 		8428363D20BB34B000E3C57E /* CreateTaskViewController+var+UI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CreateTaskViewController+var+UI.swift"; sourceTree = "<group>"; };
 		8428364120BB5EDF00E3C57E /* ComponentsListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComponentsListViewController.swift; sourceTree = "<group>"; };
@@ -78,6 +80,7 @@
 				8428364420BB645300E3C57E /* ComponentsListViewController+UITableView.swift */,
 				8428364620BB65B900E3C57E /* ComponentsListTableViewCell.swift */,
 				8428364820BB78B400E3C57E /* CreateComponentsListViewController.swift */,
+				840478B220C7550800D4FE53 /* ComponentDetailsViewController.swift */,
 			);
 			path = ComponentListVC;
 			sourceTree = "<group>";
@@ -226,6 +229,7 @@
 				84AC35EC20B9FF1000C621E0 /* Helpers.swift in Sources */,
 				8428364B20BC50F900E3C57E /* CreateTaskViewController+Functions.swift in Sources */,
 				8428363E20BB34B000E3C57E /* CreateTaskViewController+var+UI.swift in Sources */,
+				840478B320C7550800D4FE53 /* ComponentDetailsViewController.swift in Sources */,
 				8428364220BB5EDF00E3C57E /* ComponentsListViewController.swift in Sources */,
 				8428365320BCB47600E3C57E /* CoreDataManager.swift in Sources */,
 				8428364D20BC636E00E3C57E /* UI+Extensions.swift in Sources */,

@@ -19,8 +19,7 @@ import UIKit
 extension ComponentsListViewController{
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let newVC = CreateComponentsListViewController()
-        newVC.delegate = self
+        let newVC = ComponentDetailsViewController()
         navigationController?.pushViewController(newVC, animated: true)
     }
 
@@ -55,8 +54,6 @@ extension ComponentsListViewController{
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let tempCell = tableView.dequeueReusableCell(withIdentifier: componentTableID) as! ComponentsListTableViewCell
-//        tempCell.nameLabel.text = components[indexPath.row].name
-        
         tempCell.nameLabel.text = "\(components[indexPath.row].name ?? "") ---> \(components[indexPath.row].linkTask?.name ?? "***")"
         
         

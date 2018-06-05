@@ -67,7 +67,7 @@ class CreateComponentsListViewController: UIViewController {
         tempObject.setValue(nameTextField.text, forKey: "name")
         do {
             try myContext.save()
-            delegate?.addNewComponentToTableView(myComponentItem: tempObject as! ComponentItem)
+            delegate?.addNewComponentToTableView(myComponentItem: tempObject)
         } catch let unableAddComponentErr {
             print("Unable to save Component \(unableAddComponentErr)")
         }
