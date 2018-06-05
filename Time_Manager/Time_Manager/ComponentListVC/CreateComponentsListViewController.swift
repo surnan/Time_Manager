@@ -62,7 +62,8 @@ class CreateComponentsListViewController: UIViewController {
     @objc private func handleRightBarButton(){
         print("Handle Right")
         let myContext = CoreDataManager.shared.persistentContainer.viewContext
-        let tempObject = NSEntityDescription.insertNewObject(forEntityName: "ComponentItem", into: myContext)
+        let tempObject = NSEntityDescription.insertNewObject(forEntityName: "ComponentItem", into: myContext) as! ComponentItem
+        tempObject.setValue(parentTask, forKey: "linkTask")
         tempObject.setValue(nameTextField.text, forKey: "name")
         do {
             try myContext.save()
@@ -94,6 +95,12 @@ class CreateComponentsListViewController: UIViewController {
         setupUserFieldsforDataEntry()
         view.backgroundColor = UIColor.lightBlue
     }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+         print("parentTask = \(parentTask?.name ?? "*EMPTY*")")
+    }
+    
 }
 
 

@@ -50,6 +50,7 @@ class ComponentsListViewController: UITableViewController, manipulatingComponent
     @objc private func handleRightBarButton(){
         print("Handle Right")
         let newVC = CreateComponentsListViewController()
+        newVC.parentTask = currentTask
         newVC.delegate = self
         navigationController?.pushViewController(newVC, animated: true)
     }
@@ -62,7 +63,7 @@ class ComponentsListViewController: UITableViewController, manipulatingComponent
         let fetchRequest = NSFetchRequest<ComponentItem>(entityName: "ComponentItem")
         do {
         components = try myViewContext.fetch(fetchRequest)
-            components.forEach{print("componentsArray =   \($0.name ?? "")")}
+//            components.forEach{print("componentsArray =   \($0.name ?? "")")}
         } catch let fetchingComponentsErr {
             print("Error fetching \(currentTask?.name ?? "") components: \(fetchingComponentsErr)")
         }
