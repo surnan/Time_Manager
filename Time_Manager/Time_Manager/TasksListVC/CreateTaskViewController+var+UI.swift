@@ -16,12 +16,26 @@ protocol manipulatingTaskListViewController {
 class CreateTaskViewController: UIViewController {
     
     var delegate: manipulatingTaskListViewController?
-
     var currentTaskItem: TaskItem? {
         didSet {
-            nameTextField.text = currentTaskItem?.name
+            let myCurrentTask = currentTaskItem!
+            nameTextField.text = myCurrentTask.name
+            //unable to set values here.  But copy/paste same exact code into viewDidLoad & it works
+            /*
+            sundaySwitch.setOn(myCurrentTask.sunday, animated: false)
+            mondaySwitch.setOn(myCurrentTask.monday, animated: false)
+            tuesdaySwitch.setOn(myCurrentTask.tuesday, animated: false)
+            wednesdaySwitch.setOn(myCurrentTask.wednesday, animated: false)
+            thursdaySwitch.setOn(myCurrentTask.thursday, animated: false)
+            fridaySwitch.setOn(myCurrentTask.friday, animated: false)
+            saturdaySwitch.setOn(myCurrentTask.saturday, animated: false)
+             */
         }
     }
+    
+    
+    
+    
     
     var nameLabel: UILabel = {
         let tempLabel = UILabel()

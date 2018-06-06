@@ -45,6 +45,13 @@ class TasksListViewController: UITableViewController, manipulatingTaskListViewCo
                 let myIndexPath = IndexPath(row: tempIndex, section: 0)
                 tasks.remove(at: tempIndex)
                 tableView.deleteRows(at: [myIndexPath], with: .fade)
+                
+                do {
+                    try myViewContext.save()
+                } catch let savingDeleteAllToCoreData {
+                    print("Unable to save delete all changes to core data \(savingDeleteAllToCoreData)")
+                }
+                
             }
         } catch let deleteAllTasksErr {
             print("Unable to delete all tasks \(deleteAllTasksErr)")

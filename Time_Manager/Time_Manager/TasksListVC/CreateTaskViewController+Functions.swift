@@ -10,20 +10,8 @@ import UIKit
 import CoreData
 
 extension CreateTaskViewController  {
-
-//    var delegate: TasksListViewController?
-//
-//    var currentTaskItem: TaskItem? {
-//        didSet {
-//            nameTextField.text = currentTaskItem?.name
-//        }
-//    }
-    
     
     //MARK:- UI Functions
-    
-    
-//    private func setupRightButton()->(String, )
     private func setupNavBar(){
         let rightButtonText: String
         if currentTaskItem != nil {
@@ -44,21 +32,37 @@ extension CreateTaskViewController  {
     
     
     @objc private func handleRightBarButton(){
-        
         if currentTaskItem == nil {
             let myViewContext = CoreDataManager.shared.persistentContainer.viewContext
             let myTaskItem = NSEntityDescription.insertNewObject(forEntityName: "TaskItem", into: myViewContext)
             myTaskItem.setValue(nameTextField.text, forKey: "name")
+            myTaskItem.setValue(sundaySwitch.isOn, forKey: "sunday")
+            myTaskItem.setValue(mondaySwitch.isOn, forKey: "monday")
+            myTaskItem.setValue(tuesdaySwitch.isOn, forKey: "tuesday")
+            myTaskItem.setValue(wednesdaySwitch.isOn, forKey: "wednesday")
+            myTaskItem.setValue(thursdaySwitch.isOn, forKey: "thursday")
+            myTaskItem.setValue(fridaySwitch.isOn, forKey: "friday")
+            myTaskItem.setValue(saturdaySwitch.isOn, forKey: "saturday")
+            
             do {
                 try myViewContext.save()
                 delegate?.addNewTaskToTableView(myTaskItem: myTaskItem as! TaskItem)
             } catch let saveErr {
                 print("Problems saving new Task: \(saveErr)")
             }
-            
         } else {
             let myViewContext = CoreDataManager.shared.persistentContainer.viewContext
             currentTaskItem?.name = nameTextField.text
+            currentTaskItem?.sunday = sundaySwitch.isOn
+            currentTaskItem?.monday = mondaySwitch.isOn
+            currentTaskItem?.tuesday = tuesdaySwitch.isOn
+            currentTaskItem?.wednesday = wednesdaySwitch.isOn
+            currentTaskItem?.thursday = thursdaySwitch.isOn
+            currentTaskItem?.friday = fridaySwitch.isOn
+            currentTaskItem?.saturday = saturdaySwitch.isOn
+            
+            
+            
             delegate?.editExistingTaskOnTableView(myTaskItem: currentTaskItem!)
             do {
                 try myViewContext.save()
@@ -69,16 +73,25 @@ extension CreateTaskViewController  {
         navigationController?.popViewController(animated: true)
     }
 
-    
     //MARK:- Built In Swift Functions
     override func viewDidLoad() {
         super.viewDidLoad()
         setupNavBar()
         setupUserFieldsforDataEntry()
         view.backgroundColor = UIColor.lightYellow
+        
+        if let myCurrentTask = currentTaskItem {
+            sundaySwitch.setOn(myCurrentTask.sunday, animated: false)
+            mondaySwitch.setOn(myCurrentTask.monday, animated: false)
+            tuesdaySwitch.setOn(myCurrentTask.tuesday, animated: false)
+            wednesdaySwitch.setOn(myCurrentTask.wednesday, animated: false)
+            thursdaySwitch.setOn(myCurrentTask.thursday, animated: false)
+            fridaySwitch.setOn(myCurrentTask.friday, animated: false)
+            saturdaySwitch.setOn(myCurrentTask.saturday, animated: false)
+        }
     }
     
-
+    
     //MARK: Setting up Fields for User Entry
     private func setupUserFieldsforDataEntry(){
         sundayLabel = setupDayLabel(label: sundayLabel, name: "Sunday"); sundaySwitch = setupDaySwitch(switch: sundaySwitch)
