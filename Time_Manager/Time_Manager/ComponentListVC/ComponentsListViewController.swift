@@ -38,7 +38,7 @@ class ComponentsListViewController: UITableViewController, manipulatingComponent
         } else {
             navigationItem.title = "OOoopppss...."
         }
-        navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Cancel", style: .plain, target: self, action: #selector(handleLeftBarButton))
+        navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Back", style: .plain, target: self, action: #selector(handleLeftBarButton))
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "ADD", style: .done, target: self, action: #selector(handleRightBarButton))
     }
     

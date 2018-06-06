@@ -28,13 +28,28 @@ class TasksListViewController: UITableViewController, manipulatingTaskListViewCo
     //MARK:- UI
     private func setupNavigationBar(){
         navigationItem.title = "Hello World"
-        navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Cncel", style: .plain, target: self, action: #selector(handleLeftBarButton))
+        navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Delete ALL", style: .plain, target: self, action: #selector(handleLeftBarButton))
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Add", style: .plain, target: self, action: #selector(handleRightBarButton))
     }
     
     @objc func handleLeftBarButton(){
         print("left button pressed")
-        tableView.reloadData()
+        let myViewContext = CoreDataManager.shared.persistentContainer.viewContext
+        let fetchRequest = NSFetchRequest<TaskItem>(entityName: "TaskItem")
+        
+        do {
+            let tempTaskArray = try myViewContext.fetch(fetchRequest)
+            tempTaskArray.forEach { (temp) in
+                guard let tempIndex = tasks.index(of: temp) else { return }
+                myViewContext.delete(temp)
+                let myIndexPath = IndexPath(row: tempIndex, section: 0)
+                tasks.remove(at: tempIndex)
+                tableView.deleteRows(at: [myIndexPath], with: .fade)
+            }
+        } catch let deleteAllTasksErr {
+            print("Unable to delete all tasks \(deleteAllTasksErr)")
+        }
+        
     }
     
     @objc private func handleRightBarButton(){
