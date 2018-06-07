@@ -12,6 +12,33 @@ import UIKit
 
 
 extension TasksListViewController {
+    
+    //MARK:- My Functions
+
+    private func handlerDeleteAction(action: UITableViewRowAction, indexPath: IndexPath) {
+        let currentTask = tasks[indexPath.row]
+        let context = CoreDataManager.shared.persistentContainer.viewContext
+        context.delete(currentTask)
+        do {
+            try context.save()
+            tasks.remove(at: indexPath.row)
+            tableView.deleteRows(at: [indexPath], with: .fade)
+        } catch let delError {
+            print("Unable to delete task \(delError)")
+        }
+    }
+    
+    
+    private func handlerEditAction(action: UITableViewRowAction, indexPath: IndexPath) {
+        print("edit")
+        let newVC = CreateTaskViewController()
+        newVC.delegate = self
+        newVC.currentTaskItem = tasks[indexPath.row]
+        navigationController?.pushViewController(newVC, animated: true)
+    }
+    
+    
+    //MARK:- UITableView Functions
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let currentTableViewCell = tableView.dequeueReusableCell(withIdentifier: taskTableID) as! TasksListTableViewCell
         let tempTask = tasks[indexPath.row]
@@ -51,28 +78,7 @@ extension TasksListViewController {
         return [deleteAction, editAction]
     }
     
-    private func handlerDeleteAction(action: UITableViewRowAction, indexPath: IndexPath) {
-        let currentTask = tasks[indexPath.row]
-        let context = CoreDataManager.shared.persistentContainer.viewContext
-        context.delete(currentTask)
-        do {
-            try context.save()
-            tasks.remove(at: indexPath.row)
-            tableView.deleteRows(at: [indexPath], with: .fade)
-        } catch let delError {
-            print("Unable to delete task \(delError)")
-        }
-    }
-    
-    
-    private func handlerEditAction(action: UITableViewRowAction, indexPath: IndexPath) {
-        print("edit")
-        let newVC = CreateTaskViewController()
-        newVC.delegate = self
-        newVC.currentTaskItem = tasks[indexPath.row]
-        navigationController?.pushViewController(newVC, animated: true)
-    }
-    
+
     
     
     override func tableView(_ tableView: UITableView,

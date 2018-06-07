@@ -13,24 +13,74 @@ class TasksListViewController: UITableViewController, manipulatingTaskListViewCo
     
     func addNewTaskToTableView(myTaskItem: TaskItem) {
         tasks.append(myTaskItem)
-        let myIndexPath = IndexPath(row: tasks.count - 1, section: 0)
+        
+        
+        
+//        let myIndexPath = IndexPath(row: tasks.count - 1, section: 0)
+        
+        let temp = getIndexofIncomingTask(newTask: myTaskItem)
+        let myIndexPath = IndexPath(row: temp, section: 0)
+        
+        
         tableView.insertRows(at: [myIndexPath], with: .left)
+        
+        
+        print("myIndexPathRow = \(myIndexPath.row)  && getIndex = \(temp)")
+//        sortTasks()
     }
     
     func editExistingTaskOnTableView(myTaskItem: TaskItem) {
         let currentRow = tasks.index(of: myTaskItem)
         let myIndexPath = IndexPath(row: currentRow!, section: 0)
         tableView.reloadRows(at: [myIndexPath], with: .middle)
+        
+//        sortTasks()
     }
     
     var tasks = [TaskItem]()
     
+    
+    
+    func getIndexofIncomingTask(newTask: TaskItem, isSorted: Bool = true) -> Int {
+        //assuming Tasks is already sorted
+        //Unable to make this 'Private'  ... need to resolve this issue
+        
+        
+        for (index, currentTask) in tasks.enumerated() {
+            if newTask < currentTask { return index }
+        }
+        return (tasks.count - 1)  //count = maxIndex + 1
+    }
+    
+    
+    
+    
+    
+    
+    
+    
     //MARK:- UI
     private func setupNavigationBar(){
         navigationItem.title = "Hello World"
-        navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Delete ALL", style: .plain, target: self, action: #selector(handleLeftBarButton))
-        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Add", style: .plain, target: self, action: #selector(handleRightBarButton))
+        
+        
+        navigationItem.leftBarButtonItems = [UIBarButtonItem(title: "Delete ALL", style: .plain, target: self, action: #selector(handleLeftBarButton)), UIBarButtonItem(title: "sort", style: .plain, target: self, action: #selector(handleLeftBarButton2))]
+        
+                navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Add", style: .plain, target: self, action: #selector(handleRightBarButton))
     }
+    
+    
+    @objc private func handleLeftBarButton2(){
+        tasks.sort()
+        tableView.reloadData()
+    }
+    
+    
+    private func sortTasks(){
+        tasks.sort()
+        tableView.reloadData()
+    }
+        
     
     @objc func handleLeftBarButton(){
         print("left button pressed")
