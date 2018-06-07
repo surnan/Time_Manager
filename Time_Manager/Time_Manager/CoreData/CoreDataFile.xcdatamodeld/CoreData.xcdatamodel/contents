@@ -14,13 +14,13 @@
         <attribute name="saturday" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="sunday" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="thursday" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES" syncable="YES"/>
-        <attribute name="timeDate" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="timeDate" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
         <attribute name="tuesday" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="wednesday" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES" syncable="YES"/>
         <relationship name="linkComponent" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="ComponentItem" inverseName="linkTask" inverseEntity="ComponentItem" syncable="YES"/>
     </entity>
     <elements>
         <element name="ComponentItem" positionX="-378" positionY="-54" width="128" height="120"/>
-        <element name="TaskItem" positionX="-596" positionY="-81" width="128" height="195"/>
+        <element name="TaskItem" positionX="-596" positionY="-81" width="128" height="30"/>
     </elements>
 </model>

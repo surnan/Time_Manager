@@ -43,6 +43,7 @@ extension CreateTaskViewController  {
             myTaskItem.setValue(thursdaySwitch.isOn, forKey: "thursday")
             myTaskItem.setValue(fridaySwitch.isOn, forKey: "friday")
             myTaskItem.setValue(saturdaySwitch.isOn, forKey: "saturday")
+            myTaskItem.setValue(timeDatePicker.date, forKey: "timeDate")
             
             do {
                 try myViewContext.save()
@@ -60,6 +61,7 @@ extension CreateTaskViewController  {
             currentTaskItem?.thursday = thursdaySwitch.isOn
             currentTaskItem?.friday = fridaySwitch.isOn
             currentTaskItem?.saturday = saturdaySwitch.isOn
+            currentTaskItem?.timeDate = timeDatePicker.date
             
             
             

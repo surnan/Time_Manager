@@ -71,6 +71,11 @@ class TasksListViewController: UITableViewController, manipulatingTaskListViewCo
     //MARK:- Swift UI functions
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        
+        let urls = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
+        print(urls[urls.count-1] as URL)
+        
         setupNavigationBar()
      
         //var tasks = [TaskItem]()
@@ -83,6 +88,10 @@ class TasksListViewController: UITableViewController, manipulatingTaskListViewCo
         }
         self.tableView.register(TasksListTableViewCell.self, forCellReuseIdentifier: taskTableID)
         view.backgroundColor = UIColor.yellow
+        
+        
+        
+        
     }
 }
 

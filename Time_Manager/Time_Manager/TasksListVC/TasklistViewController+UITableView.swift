@@ -16,7 +16,17 @@ extension TasksListViewController {
         let currentTableViewCell = tableView.dequeueReusableCell(withIdentifier: taskTableID) as! TasksListTableViewCell
         let tempTask = tasks[indexPath.row]
         currentTableViewCell.nameLabel.text = tempTask.name
-        currentTableViewCell.timeLabel.text = "Now"
+        
+        let myDateFormatter = DateFormatter()
+        myDateFormatter.dateFormat = "hh:mm a"
+
+        guard let tempDate = tasks[indexPath.row].timeDate else {
+            print("oops")
+            return UITableViewCell()
+        }
+        
+        let myDateString = myDateFormatter.string(from: tempDate)
+        currentTableViewCell.timeLabel.text = myDateString
         currentTableViewCell.completionLabel.text = "True"
         return currentTableViewCell
     }
@@ -26,7 +36,6 @@ extension TasksListViewController {
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-//        print(tasks[indexPath.row])
         let newVC = ComponentsListViewController()
         newVC.delegate = self
         newVC.currentTask = tasks[indexPath.row]
@@ -35,8 +44,6 @@ extension TasksListViewController {
     
     
     override func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
-//        let deleteAction = UITableViewRowAction(style: .normal, title: "Delete"){print("**** \(self.tasks[$1.row])")}
-       
          let deleteAction = UITableViewRowAction(style: .destructive, title: "Delete", handler: handlerDeleteAction)
         let editAction = UITableViewRowAction(style: .normal, title: "Edit", handler: handlerEditAction)
         editAction.backgroundColor = UIColor.oliveGreen

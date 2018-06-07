@@ -20,6 +20,13 @@ class CreateTaskViewController: UIViewController {
         didSet {
             let myCurrentTask = currentTaskItem!
             nameTextField.text = myCurrentTask.name
+            
+            if let temp = myCurrentTask.timeDate {
+                timeDatePicker.date = temp
+            }
+                
+           
+            
             //unable to set values here.  But copy/paste same exact code into viewDidLoad & it works
             /*
             sundaySwitch.setOn(myCurrentTask.sunday, animated: false)
