@@ -11,76 +11,40 @@ import CoreData
 
 class TasksListViewController: UITableViewController, manipulatingTaskListViewController {
     
+    var tasks = [TaskItem]()
+    
+
     func addNewTaskToTableView(myTaskItem: TaskItem) {
         tasks.append(myTaskItem)
-        
-        
-        
-//        let myIndexPath = IndexPath(row: tasks.count - 1, section: 0)
+        tasks.sort() //???
         
         let temp = getIndexofIncomingTask(newTask: myTaskItem)
         let myIndexPath = IndexPath(row: temp, section: 0)
-        
-        
         tableView.insertRows(at: [myIndexPath], with: .left)
-        
-        
-        print("myIndexPathRow = \(myIndexPath.row)  && getIndex = \(temp)")
-//        sortTasks()
     }
     
     func editExistingTaskOnTableView(myTaskItem: TaskItem) {
-        let currentRow = tasks.index(of: myTaskItem)
-        let myIndexPath = IndexPath(row: currentRow!, section: 0)
-        tableView.reloadRows(at: [myIndexPath], with: .middle)
-        
-//        sortTasks()
+        guard let currentRow = tasks.index(of: myTaskItem) else {return}
+        let myIndexPath = IndexPath(row: currentRow, section: 0)
+        tasks.remove(at: currentRow)
+        tableView.deleteRows(at: [myIndexPath], with: .left)
+        tasks.append(myTaskItem)
+        tasks.sort()
+        let temp = getIndexofIncomingTask(newTask: myTaskItem)
+        let myIndexPath2 = IndexPath(row: temp, section: 0)
+        tableView.insertRows(at: [myIndexPath2], with: .right)
     }
     
-    var tasks = [TaskItem]()
-    
-    
-    
-    func getIndexofIncomingTask(newTask: TaskItem, isSorted: Bool = true) -> Int {
-        //assuming Tasks is already sorted
-        //Unable to make this 'Private'  ... need to resolve this issue
-        
-        
-        for (index, currentTask) in tasks.enumerated() {
-            if newTask < currentTask { return index }
-        }
-        return (tasks.count - 1)  //count = maxIndex + 1
-    }
-    
-    
-    
-    
-    
-    
-    
-    
+
     //MARK:- UI
     private func setupNavigationBar(){
         navigationItem.title = "Hello World"
         
         
-        navigationItem.leftBarButtonItems = [UIBarButtonItem(title: "Delete ALL", style: .plain, target: self, action: #selector(handleLeftBarButton)), UIBarButtonItem(title: "sort", style: .plain, target: self, action: #selector(handleLeftBarButton2))]
+        navigationItem.leftBarButtonItems = [UIBarButtonItem(title: "Delete ALL", style: .plain, target: self, action: #selector(handleLeftBarButton)), UIBarButtonItem(title: "sort", style: .plain, target: self, action: #selector(handleLeftBarButton2)), UIBarButtonItem(title: "reload", style: .plain, target: self, action: #selector(handleLeftBarButton3))]
         
-                navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Add", style: .plain, target: self, action: #selector(handleRightBarButton))
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Add", style: .plain, target: self, action: #selector(handleRightBarButton))
     }
-    
-    
-    @objc private func handleLeftBarButton2(){
-        tasks.sort()
-        tableView.reloadData()
-    }
-    
-    
-    private func sortTasks(){
-        tasks.sort()
-        tableView.reloadData()
-    }
-        
     
     @objc func handleLeftBarButton(){
         print("left button pressed")
@@ -109,12 +73,29 @@ class TasksListViewController: UITableViewController, manipulatingTaskListViewCo
         
     }
     
+    @objc private func handleLeftBarButton2(){
+        tasks.sort()
+    }
+    
+    @objc private func handleLeftBarButton3(){
+        tableView.reloadData()
+    }
+    
     @objc private func handleRightBarButton(){
         //Add/Save
         print("right button pressed")
         let newVC = CreateTaskViewController()
         newVC.delegate = self
         navigationController?.pushViewController(newVC, animated: true)
+    }
+    
+    func getIndexofIncomingTask(newTask: TaskItem, isSorted: Bool = true) -> Int {
+        //assuming Tasks is already sorted
+        //Unable to make this 'Private'  ... need to resolve this issue
+        for (index, currentTask) in tasks.enumerated() {
+            if newTask < currentTask { return index - 1}
+        }
+        return (tasks.count - 1)  //count = maxIndex + 1
     }
     
     
@@ -127,12 +108,13 @@ class TasksListViewController: UITableViewController, manipulatingTaskListViewCo
         print(urls[urls.count-1] as URL)
         
         setupNavigationBar()
-     
+        
         //var tasks = [TaskItem]()
         let myViewContext = CoreDataManager.shared.persistentContainer.viewContext
         let fetchRequest = NSFetchRequest<TaskItem>(entityName: "TaskItem")
         do {
             tasks = try myViewContext.fetch(fetchRequest)
+            tasks.sort()
         } catch let fetchErr {
             fatalError("Unable to load task data from ViewDidLoad.fetchRequest  \(fetchErr)")
         }
