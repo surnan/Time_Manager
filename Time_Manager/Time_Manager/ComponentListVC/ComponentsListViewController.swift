@@ -37,11 +37,16 @@ class ComponentsListViewController: UITableViewController, manipulatingComponent
         } else {
             navigationItem.title = "OOoopppss...."
         }
-        navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Back", style: .plain, target: self, action: #selector(handleLeftBarButton))
+        navigationItem.leftBarButtonItems = [UIBarButtonItem(title: "<", style: .plain, target: self, action: #selector(handleLeftBarButton)), UIBarButtonItem(title: "ALL", style: .plain, target: self, action: #selector(handleLeftBarButton2))]
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "ADD", style: .done, target: self, action: #selector(handleRightBarButton))
     }
     
     @objc private func handleLeftBarButton(){
+        navigationController?.popViewController(animated: true)
+    }
+    
+    
+    @objc private func handleLeftBarButton2(){
         navigationController?.popViewController(animated: true)
     }
     
@@ -58,7 +63,7 @@ class ComponentsListViewController: UITableViewController, manipulatingComponent
         setupNavBar()
         currentTask?.linkComponent?.forEach({ (temp) in
             let newTemp = temp as! ComponentItem
-            print(newTemp.name ?? "")
+            print(newTemp.cName ?? "")
             components.append(newTemp)
         })
         tableView.register(ComponentsListTableViewCell.self, forCellReuseIdentifier: componentTableID)

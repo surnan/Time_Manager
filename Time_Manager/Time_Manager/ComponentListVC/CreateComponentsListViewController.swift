@@ -21,7 +21,7 @@ class CreateComponentsListViewController: UIViewController {
     
     var currentComponentItem: ComponentItem? {
         didSet {
-            nameTextField.text = currentComponentItem?.name
+            nameTextField.text = currentComponentItem?.cName
         }
     }
     
@@ -66,7 +66,7 @@ class CreateComponentsListViewController: UIViewController {
             let myContext = CoreDataManager.shared.persistentContainer.viewContext
             let tempObject = NSEntityDescription.insertNewObject(forEntityName: "ComponentItem", into: myContext) as! ComponentItem
             tempObject.setValue(parentTask, forKey: "linkTask")
-            tempObject.setValue(nameTextField.text, forKey: "name")
+            tempObject.setValue(nameTextField.text, forKey: "cName")
             do {
                 try myContext.save()
                 delegate?.addNewComponentToTableView(myComponentItem: tempObject)
@@ -76,7 +76,7 @@ class CreateComponentsListViewController: UIViewController {
  
         } else {
             let myContext = CoreDataManager.shared.persistentContainer.viewContext
-            currentComponentItem?.name = nameTextField.text
+            currentComponentItem?.cName = nameTextField.text
             do {
                 try myContext.save()
                 delegate?.editExistingComponentOnTableView(myComponentItem: currentComponentItem!)
