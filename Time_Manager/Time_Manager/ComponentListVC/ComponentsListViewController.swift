@@ -13,22 +13,21 @@ import CoreData
 class ComponentsListViewController: UITableViewController, manipulatingComponentsListViewController {
     
     func addNewComponentToTableView(myComponentItem: ComponentItem) {
-        print("addNewComponentToTableView was called")
         components.append(myComponentItem)
         let myIndexPath = IndexPath(row: components.count - 1, section: 0)
         tableView.insertRows(at: [myIndexPath], with: .left)
     }
     
     func editExistingComponentOnTableView(myComponentItem: ComponentItem) {
-        print("editExistingComponentOnTableView was called")
+        guard let currentRow = components.index(of: myComponentItem) else {return}
+        let myIndexPath = IndexPath(row: currentRow, section: 0)
+        tableView.reloadRows(at: [myIndexPath], with: .middle)
     }
     
-//    var components = ["Alphie", "Animal", "Panda Man", "Kermit"]
     
     var components = [ComponentItem]()
     var currentTask: TaskItem?
     var delegate: TasksListViewController?
-    
     
     
     //MARK:- UI Functions
@@ -43,12 +42,10 @@ class ComponentsListViewController: UITableViewController, manipulatingComponent
     }
     
     @objc private func handleLeftBarButton(){
-        print("Handle Left")
         navigationController?.popViewController(animated: true)
     }
     
     @objc private func handleRightBarButton(){
-        print("Handle Right")
         let newVC = CreateComponentsListViewController()
         newVC.parentTask = currentTask
         newVC.delegate = self
@@ -59,14 +56,11 @@ class ComponentsListViewController: UITableViewController, manipulatingComponent
     override func viewDidLoad() {
         super.viewDidLoad()
         setupNavBar()
-        let myViewContext = CoreDataManager.shared.persistentContainer.viewContext
-        let fetchRequest = NSFetchRequest<ComponentItem>(entityName: "ComponentItem")
-        do {
-        components = try myViewContext.fetch(fetchRequest)
-//            components.forEach{print("componentsArray =   \($0.name ?? "")")}
-        } catch let fetchingComponentsErr {
-            print("Error fetching \(currentTask?.name ?? "") components: \(fetchingComponentsErr)")
-        }
+        currentTask?.linkComponent?.forEach({ (temp) in
+            let newTemp = temp as! ComponentItem
+            print(newTemp.name ?? "")
+            components.append(newTemp)
+        })
         tableView.register(ComponentsListTableViewCell.self, forCellReuseIdentifier: componentTableID)
         view.backgroundColor = UIColor.lightBlue
     }

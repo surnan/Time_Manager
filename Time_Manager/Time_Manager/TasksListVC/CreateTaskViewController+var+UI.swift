@@ -14,7 +14,6 @@ protocol manipulatingTaskListViewController {
 }
 
 class CreateTaskViewController: UIViewController {
-    
     var delegate: manipulatingTaskListViewController?
     var currentTaskItem: TaskItem? {
         didSet {
@@ -24,8 +23,6 @@ class CreateTaskViewController: UIViewController {
             if let temp = myCurrentTask.timeDate {
                 timeDatePicker.date = temp
             }
-                
-           
             
             //unable to set values here.  But copy/paste same exact code into viewDidLoad & it works
             /*
@@ -39,10 +36,6 @@ class CreateTaskViewController: UIViewController {
              */
         }
     }
-    
-    
-    
-    
     
     var nameLabel: UILabel = {
         let tempLabel = UILabel()
@@ -88,14 +81,10 @@ class CreateTaskViewController: UIViewController {
     }
     
     
-    
     var sundayLabel = UILabel(), mondayLabel = UILabel(), tuesdayLabel = UILabel(), wednesdayLabel = UILabel(),
         thursdayLabel = UILabel(), fridayLabel = UILabel(), saturdayLabel = UILabel()
-
     var sundaySwitch = UISwitch(), mondaySwitch = UISwitch(), tuesdaySwitch = UISwitch(), wednesdaySwitch = UISwitch(),
         thursdaySwitch = UISwitch(), fridaySwitch = UISwitch(), saturdaySwitch = UISwitch()
-    
-    
 }
 
 

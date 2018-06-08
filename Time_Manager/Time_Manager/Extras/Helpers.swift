@@ -12,3 +12,7 @@ let taskTableID = "taskTableID"  //Registers table in TasksListViewUITableView.v
 let componentTableID = "componentTableID"  //Registers table in ComponentsListViewUITableView.viewdidload()
 
 
+func printCoreDataPath(){
+    let urls = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
+    print(urls[urls.count-1] as URL)
+}

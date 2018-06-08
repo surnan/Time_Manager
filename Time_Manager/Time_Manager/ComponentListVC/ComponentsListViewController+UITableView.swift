@@ -30,9 +30,10 @@ extension ComponentsListViewController{
         deleteAction.backgroundColor = UIColor.red
         return[deleteAction, editAction]
     }
-    
+
     private func handlerEditAction(tableView: UITableViewRowAction, indexPath: IndexPath){
         let newVC = CreateComponentsListViewController()
+        newVC.parentTask = currentTask
         newVC.delegate = self
         newVC.currentComponentItem = components[indexPath.row]
         navigationController?.pushViewController(newVC, animated: true)
@@ -54,9 +55,7 @@ extension ComponentsListViewController{
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let tempCell = tableView.dequeueReusableCell(withIdentifier: componentTableID) as! ComponentsListTableViewCell
-        tempCell.nameLabel.text = "\(components[indexPath.row].name ?? "") ---> \(components[indexPath.row].linkTask?.name ?? "***")"
-        
-        
+        tempCell.nameLabel.text = "\(components[indexPath.row].name ?? "*EMPTY*")"
         tempCell.completionLabel.text = "Completion_Label"
         return tempCell
     }

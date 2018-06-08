@@ -21,7 +21,7 @@ class CreateComponentsListViewController: UIViewController {
     
     var currentComponentItem: ComponentItem? {
         didSet {
-          nameTextField.text = currentComponentItem?.name
+            nameTextField.text = currentComponentItem?.name
         }
     }
     
@@ -61,20 +61,33 @@ class CreateComponentsListViewController: UIViewController {
     
     @objc private func handleRightBarButton(){
         print("Handle Right")
-        let myContext = CoreDataManager.shared.persistentContainer.viewContext
-        let tempObject = NSEntityDescription.insertNewObject(forEntityName: "ComponentItem", into: myContext) as! ComponentItem
-        tempObject.setValue(parentTask, forKey: "linkTask")
-        tempObject.setValue(nameTextField.text, forKey: "name")
-        do {
-            try myContext.save()
-            delegate?.addNewComponentToTableView(myComponentItem: tempObject)
-        } catch let unableAddComponentErr {
-            print("Unable to save Component \(unableAddComponentErr)")
+        
+        if currentComponentItem == nil {
+            let myContext = CoreDataManager.shared.persistentContainer.viewContext
+            let tempObject = NSEntityDescription.insertNewObject(forEntityName: "ComponentItem", into: myContext) as! ComponentItem
+            tempObject.setValue(parentTask, forKey: "linkTask")
+            tempObject.setValue(nameTextField.text, forKey: "name")
+            do {
+                try myContext.save()
+                delegate?.addNewComponentToTableView(myComponentItem: tempObject)
+            } catch let unableAddComponentErr {
+                print("Unable to save Component \(unableAddComponentErr)")
+            }
+ 
+        } else {
+            let myContext = CoreDataManager.shared.persistentContainer.viewContext
+            currentComponentItem?.name = nameTextField.text
+            do {
+                try myContext.save()
+                delegate?.editExistingComponentOnTableView(myComponentItem: currentComponentItem!)
+            } catch let unableAddComponentErr {
+                print("Unable to save Component \(unableAddComponentErr)")
+            }
         }
         navigationController?.popViewController(animated: true)
     }
     
-
+    
     //MARK: Setting up Fields for User Entry
     private func setupUserFieldsforDataEntry(){
         [nameLabel, nameTextField].forEach{view.addSubview($0)}
@@ -87,7 +100,7 @@ class CreateComponentsListViewController: UIViewController {
         nameTextField.widthAnchor.constraint(equalToConstant: 200).isActive = true
     }
     
-
+    
     //MARK:- Built In Swift Functions
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -98,7 +111,7 @@ class CreateComponentsListViewController: UIViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-         print("parentTask = \(parentTask?.name ?? "*EMPTY*")")
+        print("parentTask = \(parentTask?.name ?? "*EMPTY*")")
     }
     
 }

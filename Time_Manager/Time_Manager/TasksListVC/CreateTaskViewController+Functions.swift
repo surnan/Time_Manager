@@ -63,8 +63,6 @@ extension CreateTaskViewController  {
             currentTaskItem?.saturday = saturdaySwitch.isOn
             currentTaskItem?.timeDate = timeDatePicker.date
             
-            
-            
             delegate?.editExistingTaskOnTableView(myTaskItem: currentTaskItem!)
             do {
                 try myViewContext.save()
