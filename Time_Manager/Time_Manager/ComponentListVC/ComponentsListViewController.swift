@@ -37,8 +37,8 @@ class ComponentsListViewController: UITableViewController, manipulatingComponent
         } else {
             navigationItem.title = "OOoopppss...."
         }
-        navigationItem.leftBarButtonItems = [UIBarButtonItem(title: "<", style: .plain, target: self, action: #selector(handleLeftBarButton)), UIBarButtonItem(title: "ALL", style: .plain, target: self, action: #selector(handleLeftBarButton2))]
-        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "ADD", style: .done, target: self, action: #selector(handleRightBarButton))
+        navigationItem.leftBarButtonItems = [UIBarButtonItem(title: "Back  ", style: .plain, target: self, action: #selector(handleLeftBarButton)), UIBarButtonItem(title: "ALL", style: .plain, target: self, action: #selector(handleLeftBarButton2))]
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: " -ALL-", style: .done, target: self, action: #selector(handleRightBarButton))
     }
     
     @objc private func handleLeftBarButton(){
@@ -46,8 +46,33 @@ class ComponentsListViewController: UITableViewController, manipulatingComponent
     }
     
     
+    /*
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        setupNavBar()
+        let myViewContext = CoreDataManager.shared.persistentContainer.viewContext
+        let fetchRequest = NSFetchRequest<ComponentItem>(entityName: "ComponentItem")
+        do {
+            components = try myViewContext.fetch(fetchRequest)
+            //            components.forEach{print("componentsArray =   \($0.name ?? "")")}
+        } catch let fetchingComponentsErr {
+            print("Error fetching \(currentTask?.name ?? "") components: \(fetchingComponentsErr)")
+        }
+        tableView.register(ComponentsListTableViewCell.self, forCellReuseIdentifier: componentTableID)
+        view.backgroundColor = UIColor.lightBlue
+    }
+ */
+    
     @objc private func handleLeftBarButton2(){
-        navigationController?.popViewController(animated: true)
+        let myViewContext = CoreDataManager.shared.persistentContainer.viewContext
+        let fetchRequest = NSFetchRequest<ComponentItem>(entityName: "ComponentItem")
+        do {
+            let tempArray = try myViewContext.fetch(fetchRequest)
+            tempArray.forEach{print($0.cName ?? "")}
+        } catch let fetchingComponentsErr {
+            print("*** unable to load all 'ComponentItems'")
+            print(fetchingComponentsErr)
+        }
     }
     
     @objc private func handleRightBarButton(){
