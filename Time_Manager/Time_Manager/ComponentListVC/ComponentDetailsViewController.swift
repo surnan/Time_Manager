@@ -14,8 +14,8 @@ class ComponentDetailsViewController: UIViewController, UITextViewDelegate {
        let tempImage = UIImageView()
         tempImage.image = #imageLiteral(resourceName: "water")
         tempImage.translatesAutoresizingMaskIntoConstraints = false
-        tempImage.widthAnchor.constraint(equalToConstant: 250).isActive = true
-        tempImage.heightAnchor.constraint(equalToConstant: 250).isActive = true
+        tempImage.widthAnchor.constraint(equalToConstant: 200).isActive = true
+        tempImage.heightAnchor.constraint(equalToConstant: 200).isActive = true
         return tempImage
     }()
     
@@ -32,7 +32,6 @@ class ComponentDetailsViewController: UIViewController, UITextViewDelegate {
         tempText.isScrollEnabled = false
         tempText.translatesAutoresizingMaskIntoConstraints = false
         tempText.widthAnchor.constraint(equalToConstant: 300).isActive = true
-//        tempText.heightAnchor.constraint(equalToConstant: 100).isActive = true
         return tempText
     }()
     
@@ -51,11 +50,21 @@ class ComponentDetailsViewController: UIViewController, UITextViewDelegate {
         self.adjustTextViewHeight()
     }
     
+    
+    
     func adjustTextViewHeight() {
         let fixedWidth = componentText.frame.size.width
         let newSize = componentText.sizeThatFits(CGSize(width: fixedWidth, height: CGFloat.greatestFiniteMagnitude))
-        self.textHeightConstraint.constant = newSize.height
+
+        
+        if newSize.height > 200 {
+            componentText.isScrollEnabled = true
+        } else {
+            componentText.isScrollEnabled = false
+            self.textHeightConstraint.constant = newSize.height
+        }
         self.view.layoutIfNeeded()
+//        self.view.layoutSubviews()  // also recommended as solution
     }
     
     
