@@ -45,24 +45,7 @@ class ComponentsListViewController: UITableViewController, manipulatingComponent
         navigationController?.popViewController(animated: true)
     }
     
-    
-    /*
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        setupNavBar()
-        let myViewContext = CoreDataManager.shared.persistentContainer.viewContext
-        let fetchRequest = NSFetchRequest<ComponentItem>(entityName: "ComponentItem")
-        do {
-            components = try myViewContext.fetch(fetchRequest)
-            //            components.forEach{print("componentsArray =   \($0.name ?? "")")}
-        } catch let fetchingComponentsErr {
-            print("Error fetching \(currentTask?.name ?? "") components: \(fetchingComponentsErr)")
-        }
-        tableView.register(ComponentsListTableViewCell.self, forCellReuseIdentifier: componentTableID)
-        view.backgroundColor = UIColor.lightBlue
-    }
- */
-    
+
     @objc private func handleLeftBarButton2(){
         let myViewContext = CoreDataManager.shared.persistentContainer.viewContext
         let fetchRequest = NSFetchRequest<ComponentItem>(entityName: "ComponentItem")
