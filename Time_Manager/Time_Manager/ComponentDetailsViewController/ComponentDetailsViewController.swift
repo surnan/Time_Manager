@@ -16,7 +16,7 @@ class ComponentDetailsViewController: UIViewController, UITextViewDelegate, UIIm
     var tapGestureComponentImage: UITapGestureRecognizer!
     var myImagePicker : UIImagePickerController = {
         let temp = UIImagePickerController()
-        temp.allowsEditing = false
+        temp.allowsEditing = true
         temp.sourceType = .photoLibrary
         temp.mediaTypes = UIImagePickerController.availableMediaTypes(for: .photoLibrary)!
         return temp
@@ -30,9 +30,6 @@ class ComponentDetailsViewController: UIViewController, UITextViewDelegate, UIIm
         tempImage.contentMode = .scaleAspectFit
         tempImage.isUserInteractionEnabled = true
         tempImage.addGestureRecognizer(tapGestureComponentImage)
-        
-
-        
         return tempImage
     }()
     
@@ -72,11 +69,7 @@ class ComponentDetailsViewController: UIViewController, UITextViewDelegate, UIIm
     private func setupUI(){
         view.backgroundColor = UIColor.white
         setupNavBar()
-        
-        
         tapGestureComponentImage = UITapGestureRecognizer(target: self, action: #selector(handleTapComponentImage))
-        
-        
     }
     
     private func setupNavBar(){
@@ -91,29 +84,30 @@ class ComponentDetailsViewController: UIViewController, UITextViewDelegate, UIIm
     
     
     //MARK:- UIImagePickerStuff
-    
     @objc private func handleTapComponentImage(){
         print("Tapping Component Image")
         present(myImagePicker, animated: true)
     }
     
     
-   func imagePickerController(_ picker: UIImagePickerController,
-                               didFinishPickingMediaWithInfo info: [String : Any])
-    {
-        print("START PICKIN IMAGE .....")
-        componentPicture.image = info[UIImagePickerControllerOriginalImage] as? UIImage
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
+//        print("START PICKIN IMAGE .....")
+//        print("================")
+//        print(info)
+//        print("================")
+        
+        if let editedImage = info["UIImagePickerControllerEditedImage"] as? UIImage {
+            componentPicture.image = editedImage
+        } else {
+            componentPicture.image = info[UIImagePickerControllerOriginalImage] as? UIImage
+        }
         self.dismiss(animated: true, completion: nil)
-        print("FINISH PICKIN IMAGE .....")
+//        print("FINISH PICKIN IMAGE .....")
     }
+    
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
         navigationController?.popViewController(animated: true)
     }
-    
-    
-    
-//    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : AnyObject])
-//    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any])
     
     
     //MARK:- Swift Built In Functions

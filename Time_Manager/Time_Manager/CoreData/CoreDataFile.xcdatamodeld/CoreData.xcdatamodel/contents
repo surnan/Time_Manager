@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="14135" systemVersion="17E202" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="14135" systemVersion="17F77" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
     <entity name="ComponentItem" representedClassName="ComponentItem" syncable="YES" codeGenerationType="class">
+        <attribute name="cMedia" optional="YES" attributeType="Binary" syncable="YES"/>
         <attribute name="cName" attributeType="String" syncable="YES"/>
-        <attribute name="picture" optional="YES" attributeType="Binary" syncable="YES"/>
+        <attribute name="cWebsite" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="video" optional="YES" attributeType="Binary" syncable="YES"/>
-        <attribute name="website" optional="YES" attributeType="String" syncable="YES"/>
         <relationship name="linkTask" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="TaskItem" inverseName="linkComponent" inverseEntity="TaskItem" syncable="YES"/>
     </entity>
     <entity name="TaskItem" representedClassName="TaskItem" syncable="YES" codeGenerationType="class">
