@@ -24,7 +24,7 @@ class ComponentDetailsViewController: UIViewController, UITextViewDelegate, UIIm
     
     lazy var componentPicture : UIImageView = {
         let tempImage = UIImageView()
-        tempImage.image = #imageLiteral(resourceName: "select_photo_empty")  //from assets
+        tempImage.image = #imageLiteral(resourceName: "plus") //from assets
         tempImage.translatesAutoresizingMaskIntoConstraints = false
         tempImage.heightAnchor.constraint(equalToConstant: 100).isActive = true
         tempImage.contentMode = .scaleAspectFit
@@ -39,7 +39,7 @@ class ComponentDetailsViewController: UIViewController, UITextViewDelegate, UIIm
         tempText.sizeToFit()
         tempText.textAlignment = .center
         tempText.textColor = UIColor.white
-        tempText.backgroundColor = UIColor.darkBlue
+        tempText.backgroundColor = UIColor.red
         tempText.isScrollEnabled = false
         tempText.translatesAutoresizingMaskIntoConstraints = false
         tempText.widthAnchor.constraint(equalToConstant: 300).isActive = true
@@ -67,7 +67,7 @@ class ComponentDetailsViewController: UIViewController, UITextViewDelegate, UIIm
     
     //MARK:- UI Functions
     private func setupUI(){
-        view.backgroundColor = UIColor.white
+        view.backgroundColor = UIColor.darkBlue
         setupNavBar()
         tapGestureComponentImage = UITapGestureRecognizer(target: self, action: #selector(handleTapComponentImage))
     }

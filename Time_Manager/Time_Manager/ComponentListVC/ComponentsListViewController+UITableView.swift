@@ -33,9 +33,9 @@ extension ComponentsListViewController{
 
     private func handlerEditAction(tableView: UITableViewRowAction, indexPath: IndexPath){
         let newVC = CreateComponentsListViewController()
+         newVC.currentComponentItem = components[indexPath.row]
         newVC.parentTask = currentTask
         newVC.delegate = self
-        newVC.currentComponentItem = components[indexPath.row]
         navigationController?.pushViewController(newVC, animated: true)
     }
 

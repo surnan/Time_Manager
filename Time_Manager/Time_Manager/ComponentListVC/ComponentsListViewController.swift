@@ -38,7 +38,7 @@ class ComponentsListViewController: UITableViewController, manipulatingComponent
             navigationItem.title = "OOoopppss...."
         }
         navigationItem.leftBarButtonItems = [UIBarButtonItem(title: "Back  ", style: .plain, target: self, action: #selector(handleLeftBarButton)), UIBarButtonItem(title: "ALL", style: .plain, target: self, action: #selector(handleLeftBarButton2))]
-        navigationItem.rightBarButtonItem = UIBarButtonItem(title: " -ALL-", style: .done, target: self, action: #selector(handleRightBarButton))
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "ADD", style: .done, target: self, action: #selector(handleRightBarButton))
     }
     
     @objc private func handleLeftBarButton(){
