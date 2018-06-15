@@ -1,5 +1,5 @@
 //
-//  CreateComponentsListViewController.swift
+//  CreateComponentViewController.swift
 //  Time_Manager
 //
 //  Created by admin on 5/27/18.
@@ -17,7 +17,7 @@ protocol manipulatingComponentsListViewController {
 
 
 
-class CreateComponentsListViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+class CreateComponentViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
     //MARK:- Parameters passed in
     var delegate: manipulatingComponentsListViewController? //passed-in
@@ -25,6 +25,13 @@ class CreateComponentsListViewController: UIViewController, UIImagePickerControl
     var currentComponentItem: ComponentItem? {  //passed-in
         didSet {
             nameTextField.text = currentComponentItem?.cName
+           
+            
+//             if let tempImage = UIImage(data: (currentComponentItem?.cMedia)!)
+            
+            if let tempImage = currentComponentItem?.cMedia {
+                iconImage.image =  UIImage(data: tempImage)
+            }
         }
     }
 
@@ -108,6 +115,12 @@ class CreateComponentsListViewController: UIViewController, UIImagePickerControl
             let tempObject = NSEntityDescription.insertNewObject(forEntityName: "ComponentItem", into: myContext) as! ComponentItem
             tempObject.setValue(parentTask, forKey: "linkTask")
             tempObject.setValue(nameTextField.text, forKey: "cName")
+            if let imageData =  UIImageJPEGRepresentation(iconImage.image!, 1){
+                tempObject.setValue(imageData, forKey: "cMedia")
+            }
+//            tempObject.setValue(nameTextField.text, forKey: "cWebsite")
+//            tempObject.setValue(nameTextField.text, forKey: "video")
+            
             do {
                 try myContext.save()
                 delegate?.addNewComponentToTableView(myComponentItem: tempObject)
@@ -117,12 +130,20 @@ class CreateComponentsListViewController: UIViewController, UIImagePickerControl
         } else {
             let myContext = CoreDataManager.shared.persistentContainer.viewContext
             currentComponentItem?.cName = nameTextField.text
+            
+            if let imageData =  UIImageJPEGRepresentation(iconImage.image!, 1){
+                currentComponentItem?.cMedia = imageData
+            }
+
+            
             do {
                 try myContext.save()
                 delegate?.editExistingComponentOnTableView(myComponentItem: currentComponentItem!)
             } catch let unableAddComponentErr {
                 print("Unable to save Component \(unableAddComponentErr)")
             }
+            //            tempObject.setValue(nameTextField.text, forKey: "cWebsite")
+            //            tempObject.setValue(nameTextField.text, forKey: "video")
         }
         navigationController?.popViewController(animated: true)
     }
@@ -156,11 +177,9 @@ class CreateComponentsListViewController: UIViewController, UIImagePickerControl
     override func viewDidLoad() {
         super.viewDidLoad()
         myImagePickerController.delegate = self
-        
         setupNavBar()
         setupUserFieldsforDataEntry()
         view.backgroundColor = UIColor.lightBlue
-        
         setupGestures()
     }
     

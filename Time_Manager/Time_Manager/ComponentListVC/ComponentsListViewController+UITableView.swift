@@ -32,7 +32,7 @@ extension ComponentsListViewController{
     }
 
     private func handlerEditAction(tableView: UITableViewRowAction, indexPath: IndexPath){
-        let newVC = CreateComponentsListViewController()
+        let newVC = CreateComponentViewController()
          newVC.currentComponentItem = components[indexPath.row]
         newVC.parentTask = currentTask
         newVC.delegate = self

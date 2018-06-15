@@ -59,7 +59,7 @@ class ComponentsListViewController: UITableViewController, manipulatingComponent
     }
     
     @objc private func handleRightBarButton(){
-        let newVC = CreateComponentsListViewController()
+        let newVC = CreateComponentViewController()
         newVC.parentTask = currentTask
         newVC.delegate = self
         navigationController?.pushViewController(newVC, animated: true)
