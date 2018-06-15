@@ -17,8 +17,7 @@ protocol manipulatingComponentsListViewController {
 
 
 
-class CreateComponentViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
-    
+class CreateComponentViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UITextViewDelegate {
     //MARK:- Parameters passed in
     var delegate: manipulatingComponentsListViewController? //passed-in
     var parentTask: TaskItem?   //passed-in
@@ -74,19 +73,35 @@ class CreateComponentViewController: UIViewController, UIImagePickerControllerDe
         return tempLabel
     }()
     
-    var noteTextField: UITextField = {
-        let tempTextField = UITextField()
+    var noteTextField: UITextView = {
+        let tempTextField = UITextView()
+        tempTextField.text = "Please enter notes"
         tempTextField.backgroundColor = UIColor.white
-        tempTextField.textAlignment = .center
-        tempTextField.text = " "  //work-around to have cursor begin in middle of nameTextField
-        tempTextField.clearsOnBeginEditing = true
-        tempTextField.placeholder = "Please enter name here"
+        tempTextField.textColor = UIColor.black
+        tempTextField.isScrollEnabled = false
+        tempTextField.sizeToFit()  // what exactly is this line doing?  //works if commented out
         tempTextField.translatesAutoresizingMaskIntoConstraints = false
         return tempTextField
     }()
     
+    var textHeightConstraint: NSLayoutConstraint!
     
-    
+    func textViewDidChangeSelection(_ textView: UITextView){
+        print("text has changed")
+        
+        
+        let fixedWidth = noteTextField.frame.size.width
+        let newSize = noteTextField.sizeThatFits(CGSize(width: fixedWidth, height: CGFloat.greatestFiniteMagnitude))
+        if newSize.height > 200 {
+            noteTextField.isScrollEnabled = true
+        } else {
+            noteTextField.isScrollEnabled = false
+            self.textHeightConstraint.constant = newSize.height
+        }
+        self.view.layoutIfNeeded()
+//                self.view.layoutSubviews()  // also recommended as solution
+    }
+
     
     
     
@@ -204,7 +219,7 @@ class CreateComponentViewController: UIViewController, UIImagePickerControllerDe
         noteTextField.topAnchor.constraint(equalTo: noteLabel.bottomAnchor, constant: 20).isActive = true
         noteTextField.leftAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leftAnchor, constant: 30).isActive = true
         noteTextField.rightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.rightAnchor, constant: -30).isActive = true
-        noteTextField.heightAnchor.constraint(equalToConstant: 100.0).isActive = true
+//        noteTextField.heightAnchor.constraint(equalToConstant: 30.0).isActive = true  //kills the variable height
     }
     
     
@@ -219,7 +234,10 @@ class CreateComponentViewController: UIViewController, UIImagePickerControllerDe
     override func viewDidLoad() {
         super.viewDidLoad()
         myImagePickerController.delegate = self
+        noteTextField.delegate = self
         setupNavBar()
+        textHeightConstraint = noteTextField.heightAnchor.constraint(equalToConstant: 40)   //variable defined earlier
+        textHeightConstraint.isActive = true
         setupUserFieldsforDataEntry()
         view.backgroundColor = UIColor.lightBlue
         setupGestures()

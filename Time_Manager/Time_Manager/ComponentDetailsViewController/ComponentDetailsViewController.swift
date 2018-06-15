@@ -49,6 +49,9 @@ class ComponentDetailsViewController: UIViewController, UITextViewDelegate, UIIm
     //MARK:- TextView Functions
     func textViewDidChange(_ textView: UITextView) {
         self.adjustTextViewHeight()
+        
+        print("!!!!")
+        
     }
     
     func adjustTextViewHeight() {
