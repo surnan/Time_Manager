@@ -25,15 +25,14 @@ class CreateComponentViewController: UIViewController, UIImagePickerControllerDe
     var currentComponentItem: ComponentItem? {  //passed-in
         didSet {
             nameTextField.text = currentComponentItem?.cName
-           
-            
-//             if let tempImage = UIImage(data: (currentComponentItem?.cMedia)!)
-            
             if let tempImage = currentComponentItem?.cMedia {
                 iconImage.image =  UIImage(data: tempImage)
             }
+            if let tempText = currentComponentItem?.cNotes {
+                noteTextField.text = tempText
+            }
         }
-    }
+    }  //
 
     //MARK:- Locally Declared Variables (except PickerController)
     lazy var iconImage : UIImageView = {
@@ -64,6 +63,31 @@ class CreateComponentViewController: UIViewController, UIImagePickerControllerDe
         tempTextField.translatesAutoresizingMaskIntoConstraints = false
         return tempTextField
     }()
+    
+    
+    var noteLabel: UILabel = {
+        let tempLabel = UILabel()
+        tempLabel.text = "NOTES"  //try to underline it
+        tempLabel.font = UIFont.boldSystemFont(ofSize: 25)
+        tempLabel.attributedText = NSAttributedString(string: tempLabel.text!, attributes: [.underlineStyle: NSUnderlineStyle.styleSingle.rawValue])
+        tempLabel.translatesAutoresizingMaskIntoConstraints = false
+        return tempLabel
+    }()
+    
+    var noteTextField: UITextField = {
+        let tempTextField = UITextField()
+        tempTextField.backgroundColor = UIColor.white
+        tempTextField.textAlignment = .center
+        tempTextField.text = " "  //work-around to have cursor begin in middle of nameTextField
+        tempTextField.clearsOnBeginEditing = true
+        tempTextField.placeholder = "Please enter name here"
+        tempTextField.translatesAutoresizingMaskIntoConstraints = false
+        return tempTextField
+    }()
+    
+    
+    
+    
     
     
     //MARK:- UIPickerController
@@ -118,9 +142,14 @@ class CreateComponentViewController: UIViewController, UIImagePickerControllerDe
             if let imageData =  UIImageJPEGRepresentation(iconImage.image!, 1){
                 tempObject.setValue(imageData, forKey: "cMedia")
             }
+            
+            if let tempNotesText = noteTextField.text {
+                tempObject.cNotes = tempNotesText
+            }
+            
 //            tempObject.setValue(nameTextField.text, forKey: "cWebsite")
 //            tempObject.setValue(nameTextField.text, forKey: "video")
-            
+//            tempObject.setValue(nameTextField.text, forKey: "cTextDetails")
             do {
                 try myContext.save()
                 delegate?.addNewComponentToTableView(myComponentItem: tempObject)
@@ -135,6 +164,9 @@ class CreateComponentViewController: UIViewController, UIImagePickerControllerDe
                 currentComponentItem?.cMedia = imageData
             }
 
+            if let tempNotesText = noteTextField.text {
+                currentComponentItem?.cNotes = tempNotesText
+            }
             
             do {
                 try myContext.save()
@@ -144,6 +176,7 @@ class CreateComponentViewController: UIViewController, UIImagePickerControllerDe
             }
             //            tempObject.setValue(nameTextField.text, forKey: "cWebsite")
             //            tempObject.setValue(nameTextField.text, forKey: "video")
+            //            tempObject.setValue(nameTextField.text, forKey: "cTextDetails")
         }
         navigationController?.popViewController(animated: true)
     }
@@ -151,7 +184,7 @@ class CreateComponentViewController: UIViewController, UIImagePickerControllerDe
     
     //MARK: Setting up Fields for User Entry
     private func setupUserFieldsforDataEntry(){
-        [iconImage, nameLabel, nameTextField].forEach{view.addSubview($0)}
+        [noteTextField, noteLabel, iconImage, nameLabel, nameTextField].forEach{view.addSubview($0)}
         
         iconImage.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 20).isActive = true
         iconImage.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
@@ -163,11 +196,20 @@ class CreateComponentViewController: UIViewController, UIImagePickerControllerDe
         nameTextField.topAnchor.constraint(equalTo: nameLabel.topAnchor).isActive = true
         nameTextField.heightAnchor.constraint(equalTo: nameLabel.heightAnchor).isActive = true
         nameTextField.widthAnchor.constraint(equalToConstant: 200).isActive = true
+        
+        
+        noteLabel.topAnchor.constraint(equalTo: nameLabel.bottomAnchor, constant: 20).isActive = true
+        noteLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        
+        noteTextField.topAnchor.constraint(equalTo: noteLabel.bottomAnchor, constant: 20).isActive = true
+        noteTextField.leftAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leftAnchor, constant: 30).isActive = true
+        noteTextField.rightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.rightAnchor, constant: -30).isActive = true
+        noteTextField.heightAnchor.constraint(equalToConstant: 100.0).isActive = true
     }
     
     
+    //MARK:- Setup Gesture
     var myTapGesture : UITapGestureRecognizer!
-
     private func setupGestures(){
         myTapGesture = UITapGestureRecognizer(target: self, action: #selector(handleIconTap))
         iconImage.addGestureRecognizer(myTapGesture)
