@@ -4,6 +4,8 @@
 <dict>
 	<key>NSPhotoLibraryAddUsageDescription</key>
 	<string>Set the Background</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>&quot;Hoping to use your location when this app runs.  For Web Browser laounch&quot;</string>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>Set the Background</string>
 	<key>CFBundleDevelopmentRegion</key>

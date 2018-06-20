@@ -27,6 +27,7 @@
 		84AC35EC20B9FF1000C621E0 /* Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84AC35EB20B9FF1000C621E0 /* Helpers.swift */; };
 		84AC35EE20B9FFC000C621E0 /* TasksListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84AC35ED20B9FFC000C621E0 /* TasksListTableViewCell.swift */; };
 		84AC35F120BA040600C621E0 /* UIColor+theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84AC35F020BA040600C621E0 /* UIColor+theme.swift */; };
+		84D6D71D20D4B35500FAB949 /* BlankViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84D6D71C20D4B35500FAB949 /* BlankViewController.swift */; };
 		84EEF47220CCA9A800FE69C5 /* myVid.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 84EEF47120CCA9A800FE69C5 /* myVid.mp4 */; };
 /* End PBXBuildFile section */
 
@@ -53,6 +54,7 @@
 		84AC35EB20B9FF1000C621E0 /* Helpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Helpers.swift; sourceTree = "<group>"; };
 		84AC35ED20B9FFC000C621E0 /* TasksListTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TasksListTableViewCell.swift; sourceTree = "<group>"; };
 		84AC35F020BA040600C621E0 /* UIColor+theme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+theme.swift"; sourceTree = "<group>"; };
+		84D6D71C20D4B35500FAB949 /* BlankViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlankViewController.swift; sourceTree = "<group>"; };
 		84EEF47120CCA9A800FE69C5 /* myVid.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = myVid.mp4; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -148,6 +150,7 @@
 				84AC35F020BA040600C621E0 /* UIColor+theme.swift */,
 				8428363B20BAFAAD00E3C57E /* UINavigationController+Extension.swift */,
 				8428364C20BC636E00E3C57E /* UI+Extensions.swift */,
+				84D6D71C20D4B35500FAB949 /* BlankViewController.swift */,
 			);
 			path = Extras;
 			sourceTree = "<group>";
@@ -233,6 +236,7 @@
 			files = (
 				845886E420C8E4C900F25FA0 /* Task+Operators.swift in Sources */,
 				8428364920BB78B400E3C57E /* CreateComponentsListViewController.swift in Sources */,
+				84D6D71D20D4B35500FAB949 /* BlankViewController.swift in Sources */,
 				84AC35EE20B9FFC000C621E0 /* TasksListTableViewCell.swift in Sources */,
 				8428365020BCB03000E3C57E /* CoreDataFile.xcdatamodeld in Sources */,
 				84AC35D920B99C1F00C621E0 /* TasklistViewController.swift in Sources */,

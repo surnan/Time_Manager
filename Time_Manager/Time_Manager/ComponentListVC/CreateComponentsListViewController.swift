@@ -8,6 +8,7 @@
 
 import UIKit
 import CoreData
+import WebKit
 
 //MARK:- manipulatingComponentsListViewController Protocol defined
 protocol manipulatingComponentsListViewController {
@@ -17,7 +18,9 @@ protocol manipulatingComponentsListViewController {
 
 
 
-class CreateComponentViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UITextViewDelegate {
+class CreateComponentViewController: UIViewController, UIImagePickerControllerDelegate,
+                                    UINavigationControllerDelegate, UITextViewDelegate,
+                                    WKUIDelegate {
     //MARK:- Parameters passed in
     var delegate: manipulatingComponentsListViewController? //passed-in
     var parentTask: TaskItem?   //passed-in
@@ -73,13 +76,14 @@ class CreateComponentViewController: UIViewController, UIImagePickerControllerDe
         return tempLabel
     }()
     
+    //MARK: TextView Starts here
     var noteTextField: UITextView = {
         let tempTextField = UITextView()
         tempTextField.text = "Please enter notes"
         tempTextField.backgroundColor = UIColor.white
         tempTextField.textColor = UIColor.black
         tempTextField.isScrollEnabled = false
-        tempTextField.sizeToFit()  // what exactly is this line doing?  //works if commented out
+//        tempTextField.sizeToFit()  // what exactly is this line doing?  //works if commented out
         tempTextField.translatesAutoresizingMaskIntoConstraints = false
         return tempTextField
     }()
@@ -87,12 +91,10 @@ class CreateComponentViewController: UIViewController, UIImagePickerControllerDe
     var textHeightConstraint: NSLayoutConstraint!
     
     func textViewDidChangeSelection(_ textView: UITextView){
-        print("text has changed")
-        
-        
         let fixedWidth = noteTextField.frame.size.width
         let newSize = noteTextField.sizeThatFits(CGSize(width: fixedWidth, height: CGFloat.greatestFiniteMagnitude))
         if newSize.height > 200 {
+            //before getting here, you would have built up the height to 200 from hitting the "else" clause
             noteTextField.isScrollEnabled = true
         } else {
             noteTextField.isScrollEnabled = false
@@ -101,9 +103,40 @@ class CreateComponentViewController: UIViewController, UIImagePickerControllerDe
         self.view.layoutIfNeeded()
 //                self.view.layoutSubviews()  // also recommended as solution
     }
+    
+    //MARK: Web Browser Setup & UIButton()
+    /*
+    var urlString = "https://www.google.com"
+    var webView: WKWebView!
+     */
+    
+    
+    
+    @objc func handlewebsiteButtonPressed(){
+        print("button pressed")
+        
+//        let newVC = BlankViewController() //<--- viewDidLoad has browser calls
+//        navigationController?.pushViewController(newVC, animated: true)
+        
+        
+        UIApplication.shared.open(NSURL(string:"http://www.google.com/")! as URL)
+        
+        
+        
+        
+        
+    }
+    
+    var websiteButton : UIButton = {
+       let tempButton = UIButton()
+        tempButton.setTitle("PRESS BUTTON TO LOAD WEBSITE", for: .normal)
+        tempButton.setTitleColor(UIColor.yellow, for: .normal)
+        tempButton.backgroundColor = UIColor.blue
+        tempButton.translatesAutoresizingMaskIntoConstraints = false
+        tempButton.addTarget(self, action: #selector(handlewebsiteButtonPressed), for: .touchDown)
+        return tempButton
+    }()
 
-    
-    
     
     //MARK:- UIPickerController
     var myImagePickerController: UIImagePickerController = {
@@ -199,7 +232,7 @@ class CreateComponentViewController: UIViewController, UIImagePickerControllerDe
     
     //MARK: Setting up Fields for User Entry
     private func setupUserFieldsforDataEntry(){
-        [noteTextField, noteLabel, iconImage, nameLabel, nameTextField].forEach{view.addSubview($0)}
+        [websiteButton, noteTextField, noteLabel, iconImage, nameLabel, nameTextField].forEach{view.addSubview($0)}
         
         iconImage.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 20).isActive = true
         iconImage.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
@@ -220,6 +253,9 @@ class CreateComponentViewController: UIViewController, UIImagePickerControllerDe
         noteTextField.leftAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leftAnchor, constant: 30).isActive = true
         noteTextField.rightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.rightAnchor, constant: -30).isActive = true
 //        noteTextField.heightAnchor.constraint(equalToConstant: 30.0).isActive = true  //kills the variable height
+        
+        websiteButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -100).isActive = true
+        websiteButton.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
     }
     
     
