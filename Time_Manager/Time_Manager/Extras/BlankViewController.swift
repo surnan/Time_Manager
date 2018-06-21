@@ -10,6 +10,9 @@ import UIKit
 import WebKit
 
 
+//        let newVC = BlankViewController() //<--- viewDidLoad has browser calls
+//        navigationController?.pushViewController(newVC, animated: true)
+
 class BlankViewController: UIViewController, WKUIDelegate {
     
     var myTapGesture : UITapGestureRecognizer!

@@ -20,7 +20,7 @@ protocol manipulatingComponentsListViewController {
 
 class CreateComponentViewController: UIViewController, UIImagePickerControllerDelegate,
                                     UINavigationControllerDelegate, UITextViewDelegate,
-                                    WKUIDelegate {
+                                    UITextFieldDelegate, WKUIDelegate {
     //MARK:- Parameters passed in
     var delegate: manipulatingComponentsListViewController? //passed-in
     var parentTask: TaskItem?   //passed-in
@@ -32,6 +32,9 @@ class CreateComponentViewController: UIViewController, UIImagePickerControllerDe
             }
             if let tempText = currentComponentItem?.cNotes {
                 noteTextField.text = tempText
+            }
+            if let tempURL = currentComponentItem?.cWebsite {
+                urlTextField.text = tempURL
             }
         }
     }  //
@@ -91,6 +94,8 @@ class CreateComponentViewController: UIViewController, UIImagePickerControllerDe
     var textHeightConstraint: NSLayoutConstraint!
     
     func textViewDidChangeSelection(_ textView: UITextView){
+        
+        if textView == noteTextField {
         let fixedWidth = noteTextField.frame.size.width
         let newSize = noteTextField.sizeThatFits(CGSize(width: fixedWidth, height: CGFloat.greatestFiniteMagnitude))
         if newSize.height > 200 {
@@ -102,33 +107,57 @@ class CreateComponentViewController: UIViewController, UIImagePickerControllerDe
         }
         self.view.layoutIfNeeded()
 //                self.view.layoutSubviews()  // also recommended as solution
+        } else {
+            
+        }
+    
+    
+    
     }
     
     //MARK: Web Browser Setup & UIButton()
-    /*
-    var urlString = "https://www.google.com"
-    var webView: WKWebView!
-     */
-    
-    
-    
     @objc func handlewebsiteButtonPressed(){
-        print("button pressed")
-        
-//        let newVC = BlankViewController() //<--- viewDidLoad has browser calls
-//        navigationController?.pushViewController(newVC, animated: true)
-        
-        
-        UIApplication.shared.open(NSURL(string:"http://www.google.com/")! as URL)
-        
-        
-        
-        
-        
+        if let myURLString = urlTextField.text {
+            UIApplication.shared.open(NSURL(string:myURLString)! as URL)
+        }
     }
     
+
+    //MARK: Collecting URL
+    var urlLabel: UILabel = {
+       var tempLabel = UILabel()
+        tempLabel.textColor = UIColor.black
+        tempLabel.backgroundColor = UIColor.white
+        tempLabel.text = "--TYPE/PASTE NEW URL BELOW--"
+        tempLabel.translatesAutoresizingMaskIntoConstraints = false
+        return tempLabel
+    }()
+    
+    var urlTextField: UITextField = {
+       var tempTextField = UITextField()
+        tempTextField.placeholder = "Paste or type in new URL"
+        tempTextField.backgroundColor = UIColor.white
+        tempTextField.textColor = UIColor.black
+        tempTextField.clearsOnBeginEditing = true
+        tempTextField.translatesAutoresizingMaskIntoConstraints = false
+        return tempTextField
+    }()
+    
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        if let myBool = textField.text {
+            if myBool.isEmpty {
+                websiteButton.isHidden = true
+            } else {
+                websiteButton.isHidden = false
+            }
+        }
+    }
+    
+    
+    
+    
     var websiteButton : UIButton = {
-       let tempButton = UIButton()
+        let tempButton = UIButton()
         tempButton.setTitle("PRESS BUTTON TO LOAD WEBSITE", for: .normal)
         tempButton.setTitleColor(UIColor.yellow, for: .normal)
         tempButton.backgroundColor = UIColor.blue
@@ -136,7 +165,10 @@ class CreateComponentViewController: UIViewController, UIImagePickerControllerDe
         tempButton.addTarget(self, action: #selector(handlewebsiteButtonPressed), for: .touchDown)
         return tempButton
     }()
-
+    
+    
+    
+    
     
     //MARK:- UIPickerController
     var myImagePickerController: UIImagePickerController = {
@@ -195,9 +227,18 @@ class CreateComponentViewController: UIViewController, UIImagePickerControllerDe
                 tempObject.cNotes = tempNotesText
             }
             
-//            tempObject.setValue(nameTextField.text, forKey: "cWebsite")
+            if let tempNotesText = noteTextField.text {
+                tempObject.cNotes = tempNotesText
+            }
+            
+            if let urlText = urlTextField.text {
+                //verify that it's also a valid URL type also
+                tempObject.cWebsite = urlText
+            }
+            
 //            tempObject.setValue(nameTextField.text, forKey: "video")
 //            tempObject.setValue(nameTextField.text, forKey: "cTextDetails")
+
             do {
                 try myContext.save()
                 delegate?.addNewComponentToTableView(myComponentItem: tempObject)
@@ -216,6 +257,11 @@ class CreateComponentViewController: UIViewController, UIImagePickerControllerDe
                 currentComponentItem?.cNotes = tempNotesText
             }
             
+            if let urlText = urlTextField.text {
+                currentComponentItem?.cWebsite = urlText
+            }
+            
+            
             do {
                 try myContext.save()
                 delegate?.editExistingComponentOnTableView(myComponentItem: currentComponentItem!)
@@ -232,14 +278,13 @@ class CreateComponentViewController: UIViewController, UIImagePickerControllerDe
     
     //MARK: Setting up Fields for User Entry
     private func setupUserFieldsforDataEntry(){
-        [websiteButton, noteTextField, noteLabel, iconImage, nameLabel, nameTextField].forEach{view.addSubview($0)}
-        
-        iconImage.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 20).isActive = true
-        iconImage.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        
-        nameLabel.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 50).isActive = true
-        nameLabel.topAnchor.constraint(equalTo: iconImage.bottomAnchor, constant: 50).isActive = true
-        
+        [websiteButton, noteTextField, noteLabel, iconImage, nameLabel, nameTextField, urlLabel, urlTextField].forEach{view.addSubview($0)}
+
+        //Change nameLabel to shift left as NameTextField is being edited
+        //Consider 'nameLabel+nameTextField' = UIStackView
+        nameLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor, constant: -50).isActive = true
+        nameLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 30).isActive = true
+
         nameTextField.leftAnchor.constraint(equalTo: nameLabel.rightAnchor, constant: 20).isActive = true
         nameTextField.topAnchor.constraint(equalTo: nameLabel.topAnchor).isActive = true
         nameTextField.heightAnchor.constraint(equalTo: nameLabel.heightAnchor).isActive = true
@@ -252,10 +297,25 @@ class CreateComponentViewController: UIViewController, UIImagePickerControllerDe
         noteTextField.topAnchor.constraint(equalTo: noteLabel.bottomAnchor, constant: 20).isActive = true
         noteTextField.leftAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leftAnchor, constant: 30).isActive = true
         noteTextField.rightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.rightAnchor, constant: -30).isActive = true
-//        noteTextField.heightAnchor.constraint(equalToConstant: 30.0).isActive = true  //kills the variable height
+        //        noteTextField.heightAnchor.constraint(equalToConstant: 30.0).isActive = true  //kills the variable height
         
-        websiteButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -100).isActive = true
+        
+        iconImage.topAnchor.constraint(equalTo: noteTextField.bottomAnchor, constant: 30).isActive = true
+        iconImage.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        
+        urlLabel.topAnchor.constraint(equalTo: iconImage.bottomAnchor, constant: 30).isActive = true
+        urlLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        
+        urlTextField.topAnchor.constraint(equalTo: urlLabel.bottomAnchor, constant: 10).isActive = true
+        urlTextField.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        urlTextField.leftAnchor.constraint(equalTo: noteTextField.leftAnchor).isActive = true
+        urlTextField.rightAnchor.constraint(equalTo: noteTextField.rightAnchor).isActive = true
+        
+        websiteButton.topAnchor.constraint(equalTo: urlTextField.bottomAnchor, constant: 20).isActive = true
         websiteButton.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+
+
+
     }
     
     
@@ -270,6 +330,7 @@ class CreateComponentViewController: UIViewController, UIImagePickerControllerDe
     override func viewDidLoad() {
         super.viewDidLoad()
         myImagePickerController.delegate = self
+        urlTextField.delegate = self
         noteTextField.delegate = self
         setupNavBar()
         textHeightConstraint = noteTextField.heightAnchor.constraint(equalToConstant: 40)   //variable defined earlier

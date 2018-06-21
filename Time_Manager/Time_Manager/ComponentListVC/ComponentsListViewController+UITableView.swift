@@ -8,13 +8,6 @@
 
 import UIKit
 
-//
-//var delegate: TasksListViewController?
-//
-//var components = ["Alphie", "Animal", "Panda Man", "Kermit"]
-
-
-
 
 extension ComponentsListViewController{
     
