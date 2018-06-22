@@ -9,10 +9,20 @@
 import UIKit
 
 
+//let newVC = CreateComponentViewController()
+//newVC.currentComponentItem = components[indexPath.row]
+//newVC.parentTask = currentTask
+//newVC.delegate = self
+//navigationController?.pushViewController(newVC, animated: true)
+
+
 extension ComponentsListViewController{
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let newVC = ComponentDetailsViewController()
+        newVC.currentComponentItem = components[indexPath.row]
+        newVC.parentTask = currentTask
+        newVC.myDelegate = self
         navigationController?.pushViewController(newVC, animated: true)
     }
 

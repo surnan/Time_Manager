@@ -13,7 +13,7 @@
 		8428364220BB5EDF00E3C57E /* ComponentsListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8428364120BB5EDF00E3C57E /* ComponentsListViewController.swift */; };
 		8428364520BB645300E3C57E /* ComponentsListViewController+UITableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8428364420BB645300E3C57E /* ComponentsListViewController+UITableView.swift */; };
 		8428364720BB65B900E3C57E /* ComponentsListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8428364620BB65B900E3C57E /* ComponentsListTableViewCell.swift */; };
-		8428364920BB78B400E3C57E /* CreateComponentsListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8428364820BB78B400E3C57E /* CreateComponentsListViewController.swift */; };
+		8428364920BB78B400E3C57E /* CreateComponentsListViewController+Var.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8428364820BB78B400E3C57E /* CreateComponentsListViewController+Var.swift */; };
 		8428364B20BC50F900E3C57E /* CreateTaskViewController+Functions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8428364A20BC50F900E3C57E /* CreateTaskViewController+Functions.swift */; };
 		8428364D20BC636E00E3C57E /* UI+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8428364C20BC636E00E3C57E /* UI+Extensions.swift */; };
 		8428365020BCB03000E3C57E /* CoreDataFile.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 8428364E20BCB03000E3C57E /* CoreDataFile.xcdatamodeld */; };
@@ -38,7 +38,7 @@
 		8428364120BB5EDF00E3C57E /* ComponentsListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComponentsListViewController.swift; sourceTree = "<group>"; };
 		8428364420BB645300E3C57E /* ComponentsListViewController+UITableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ComponentsListViewController+UITableView.swift"; sourceTree = "<group>"; };
 		8428364620BB65B900E3C57E /* ComponentsListTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComponentsListTableViewCell.swift; sourceTree = "<group>"; };
-		8428364820BB78B400E3C57E /* CreateComponentsListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateComponentsListViewController.swift; sourceTree = "<group>"; };
+		8428364820BB78B400E3C57E /* CreateComponentsListViewController+Var.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CreateComponentsListViewController+Var.swift"; sourceTree = "<group>"; };
 		8428364A20BC50F900E3C57E /* CreateTaskViewController+Functions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CreateTaskViewController+Functions.swift"; sourceTree = "<group>"; };
 		8428364C20BC636E00E3C57E /* UI+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UI+Extensions.swift"; sourceTree = "<group>"; };
 		8428364F20BCB03000E3C57E /* CoreData.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = CoreData.xcdatamodel; sourceTree = "<group>"; };
@@ -86,7 +86,7 @@
 				8428364120BB5EDF00E3C57E /* ComponentsListViewController.swift */,
 				8428364420BB645300E3C57E /* ComponentsListViewController+UITableView.swift */,
 				8428364620BB65B900E3C57E /* ComponentsListTableViewCell.swift */,
-				8428364820BB78B400E3C57E /* CreateComponentsListViewController.swift */,
+				843831D020DB59D600BE5C95 /* CreateComponentsListViewController */,
 			);
 			path = ComponentListVC;
 			sourceTree = "<group>";
@@ -98,6 +98,14 @@
 				8428365220BCB47600E3C57E /* CoreDataManager.swift */,
 			);
 			path = CoreData;
+			sourceTree = "<group>";
+		};
+		843831D020DB59D600BE5C95 /* CreateComponentsListViewController */ = {
+			isa = PBXGroup;
+			children = (
+				8428364820BB78B400E3C57E /* CreateComponentsListViewController+Var.swift */,
+			);
+			path = CreateComponentsListViewController;
 			sourceTree = "<group>";
 		};
 		84AC35CA20B99C1F00C621E0 = {
@@ -235,7 +243,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				845886E420C8E4C900F25FA0 /* Task+Operators.swift in Sources */,
-				8428364920BB78B400E3C57E /* CreateComponentsListViewController.swift in Sources */,
+				8428364920BB78B400E3C57E /* CreateComponentsListViewController+Var.swift in Sources */,
 				84D6D71D20D4B35500FAB949 /* BlankViewController.swift in Sources */,
 				84AC35EE20B9FFC000C621E0 /* TasksListTableViewCell.swift in Sources */,
 				8428365020BCB03000E3C57E /* CoreDataFile.xcdatamodeld in Sources */,

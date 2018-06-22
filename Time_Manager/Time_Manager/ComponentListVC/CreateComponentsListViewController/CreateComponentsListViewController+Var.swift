@@ -19,8 +19,8 @@ protocol manipulatingComponentsListViewController {
 
 
 class CreateComponentViewController: UIViewController, UIImagePickerControllerDelegate,
-                                    UINavigationControllerDelegate, UITextViewDelegate,
-                                    UITextFieldDelegate, WKUIDelegate {
+    UINavigationControllerDelegate, UITextViewDelegate,
+UITextFieldDelegate, WKUIDelegate {
     //MARK:- Parameters passed in
     var delegate: manipulatingComponentsListViewController? //passed-in
     var parentTask: TaskItem?   //passed-in
@@ -38,7 +38,7 @@ class CreateComponentViewController: UIViewController, UIImagePickerControllerDe
             }
         }
     }  //
-
+    
     //MARK:- Locally Declared Variables (except PickerController)
     lazy var iconImage : UIImageView = {
         let tempImage = UIImageView()
@@ -86,7 +86,7 @@ class CreateComponentViewController: UIViewController, UIImagePickerControllerDe
         tempTextField.backgroundColor = UIColor.white
         tempTextField.textColor = UIColor.black
         tempTextField.isScrollEnabled = false
-//        tempTextField.sizeToFit()  // what exactly is this line doing?  //works if commented out
+        //        tempTextField.sizeToFit()  // what exactly is this line doing?  //works if commented out
         tempTextField.translatesAutoresizingMaskIntoConstraints = false
         return tempTextField
     }()
@@ -96,23 +96,20 @@ class CreateComponentViewController: UIViewController, UIImagePickerControllerDe
     func textViewDidChangeSelection(_ textView: UITextView){
         
         if textView == noteTextField {
-        let fixedWidth = noteTextField.frame.size.width
-        let newSize = noteTextField.sizeThatFits(CGSize(width: fixedWidth, height: CGFloat.greatestFiniteMagnitude))
-        if newSize.height > 200 {
-            //before getting here, you would have built up the height to 200 from hitting the "else" clause
-            noteTextField.isScrollEnabled = true
-        } else {
-            noteTextField.isScrollEnabled = false
-            self.textHeightConstraint.constant = newSize.height
-        }
-        self.view.layoutIfNeeded()
-//                self.view.layoutSubviews()  // also recommended as solution
+            let fixedWidth = noteTextField.frame.size.width
+            let newSize = noteTextField.sizeThatFits(CGSize(width: fixedWidth, height: CGFloat.greatestFiniteMagnitude))
+            if newSize.height > 200 {
+                //before getting here, you would have built up the height to 200 from hitting the "else" clause
+                noteTextField.isScrollEnabled = true
+            } else {
+                noteTextField.isScrollEnabled = false
+                self.textHeightConstraint.constant = newSize.height
+            }
+            self.view.layoutIfNeeded()
+            //                self.view.layoutSubviews()  // also recommended as solution
         } else {
             
         }
-    
-    
-    
     }
     
     //MARK: Web Browser Setup & UIButton()
@@ -122,10 +119,10 @@ class CreateComponentViewController: UIViewController, UIImagePickerControllerDe
         }
     }
     
-
+    
     //MARK: Collecting URL
     var urlLabel: UILabel = {
-       var tempLabel = UILabel()
+        var tempLabel = UILabel()
         tempLabel.textColor = UIColor.black
         tempLabel.backgroundColor = UIColor.white
         tempLabel.text = "--TYPE/PASTE NEW URL BELOW--"
@@ -134,7 +131,7 @@ class CreateComponentViewController: UIViewController, UIImagePickerControllerDe
     }()
     
     var urlTextField: UITextField = {
-       var tempTextField = UITextField()
+        var tempTextField = UITextField()
         tempTextField.placeholder = "Paste or type in new URL"
         tempTextField.backgroundColor = UIColor.white
         tempTextField.textColor = UIColor.black
@@ -193,7 +190,7 @@ class CreateComponentViewController: UIViewController, UIImagePickerControllerDe
     
     
     //MARK:- UI Functions
-
+    
     @objc private func handleIconTap(){
         print("Picture Clicked!!!")
         present(myImagePickerController, animated: true)
@@ -235,10 +232,8 @@ class CreateComponentViewController: UIViewController, UIImagePickerControllerDe
                 //verify that it's also a valid URL type also
                 tempObject.cWebsite = urlText
             }
-            
-//            tempObject.setValue(nameTextField.text, forKey: "video")
-//            tempObject.setValue(nameTextField.text, forKey: "cTextDetails")
-
+            //            tempObject.setValue(nameTextField.text, forKey: "video")
+            //            tempObject.setValue(nameTextField.text, forKey: "cTextDetails")
             do {
                 try myContext.save()
                 delegate?.addNewComponentToTableView(myComponentItem: tempObject)
@@ -252,7 +247,7 @@ class CreateComponentViewController: UIViewController, UIImagePickerControllerDe
             if let imageData =  UIImageJPEGRepresentation(iconImage.image!, 1){
                 currentComponentItem?.cMedia = imageData
             }
-
+            
             if let tempNotesText = noteTextField.text {
                 currentComponentItem?.cNotes = tempNotesText
             }
@@ -279,12 +274,12 @@ class CreateComponentViewController: UIViewController, UIImagePickerControllerDe
     //MARK: Setting up Fields for User Entry
     private func setupUserFieldsforDataEntry(){
         [websiteButton, noteTextField, noteLabel, iconImage, nameLabel, nameTextField, urlLabel, urlTextField].forEach{view.addSubview($0)}
-
+        
         //Change nameLabel to shift left as NameTextField is being edited
         //Consider 'nameLabel+nameTextField' = UIStackView
         nameLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor, constant: -50).isActive = true
         nameLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 30).isActive = true
-
+        
         nameTextField.leftAnchor.constraint(equalTo: nameLabel.rightAnchor, constant: 20).isActive = true
         nameTextField.topAnchor.constraint(equalTo: nameLabel.topAnchor).isActive = true
         nameTextField.heightAnchor.constraint(equalTo: nameLabel.heightAnchor).isActive = true
@@ -313,9 +308,6 @@ class CreateComponentViewController: UIViewController, UIImagePickerControllerDe
         
         websiteButton.topAnchor.constraint(equalTo: urlTextField.bottomAnchor, constant: 20).isActive = true
         websiteButton.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-
-
-
     }
     
     
