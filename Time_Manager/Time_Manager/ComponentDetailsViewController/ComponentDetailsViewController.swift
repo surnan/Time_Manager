@@ -18,37 +18,63 @@ class ComponentDetailsViewController: UIViewController {
         didSet {
             if let notes = currentComponentItem?.cNotes {currentNotes.text = notes}
             if let website = currentComponentItem?.cWebsite {currentWebsite = website}
-            if let media = currentComponentItem?.cMedia {currentMedia = media}
+            if let media = currentComponentItem?.cMedia {currentMediaData = media}
         }
     }
     
     //MARK:- Local declared parameters loaded up from incoming variables
-
     let currentNotes: UITextView = {
         let tempTextView = UITextView()
-        tempTextView.backgroundColor = UIColor.white
+        tempTextView.backgroundColor = UIColor.lightPurple
         tempTextView.textColor = UIColor.black
         tempTextView.font = UIFont.boldSystemFont(ofSize: 20)
         tempTextView.isEditable = false
         tempTextView.isScrollEnabled = false
-//                tempTextView.isScrollEnabled = true; tempTextView.heightAnchor.constraint(equalToConstant: 300).isActive = true
+        //tempTextView.isScrollEnabled = true; tempTextView.heightAnchor.constraint(equalToConstant: 300).isActive = true
         tempTextView.translatesAutoresizingMaskIntoConstraints = false
         return tempTextView
+    }()
+    
+    var currentMediaData: Data!
+    let currentMedia : UIImageView = {
+        let tempImage = UIImageView()
+        tempImage.backgroundColor = UIColor.yellow
+        tempImage.contentMode = .scaleAspectFit
+//        tempImage.contentMode = .scaleToFill
+//        tempImage.contentMode = .scaleAspectFill
+        tempImage.translatesAutoresizingMaskIntoConstraints = false
+        return tempImage
     }()
     
     let buttonWebsite: UIButton = {
         let tempButton = UIButton()
         tempButton.setTitle("LOAD WEBSITE", for: .normal)
         tempButton.setTitleColor(UIColor.black, for: .normal)
-        tempButton.backgroundColor = UIColor.white
+        tempButton.backgroundColor = UIColor.lightGray
+        tempButton.addTarget(self, action: #selector(handleButtonWebsite), for: .touchDown)
         tempButton.translatesAutoresizingMaskIntoConstraints = false
         return tempButton
     }()
     
-
+    var myScrollView2: UIScrollView = {
+       let tempScrollView = UIScrollView()
+        tempScrollView.backgroundColor = UIColor.black
+        tempScrollView.isDirectionalLockEnabled = true
+        tempScrollView.bounces = false
+        tempScrollView.isUserInteractionEnabled = true
+        tempScrollView.translatesAutoresizingMaskIntoConstraints = false
+        return tempScrollView
+    }()
+    
+    var myStackView : UIStackView = {
+       let tempStackView = UIStackView()
+        tempStackView.translatesAutoresizingMaskIntoConstraints = false
+        tempStackView.axis = .vertical
+        tempStackView.spacing = 20
+        return tempStackView
+    }()
     
     var currentWebsite: String?
-    var currentMedia: Data?
     
     //MARK:- Setup Navigation Bar
     private func setupNavigationBar(){
@@ -60,62 +86,48 @@ class ComponentDetailsViewController: UIViewController {
         print("Right Button Selected")
     }
 
-
-    let myScrollView: UIScrollView = {
-        let v = UIScrollView()
-        v.isDirectionalLockEnabled = true
-        v.bounces = false
-        v.backgroundColor = .cyan
-        v.isUserInteractionEnabled = true
-        v.translatesAutoresizingMaskIntoConstraints = false
-        return v
-    }()
     
-
-    private func useScrollViewConstraints(){
-        
-        let screenSize = UIScreen.main.bounds
-        
-        myScrollView.contentSize = CGSize(width: screenSize.width, height: screenSize.height + 2000)
-        currentNotes.sizeToFit()
-        
-        view.addSubview(myScrollView)
-        myScrollView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 10).isActive = true
-        myScrollView.leftAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leftAnchor, constant: 10).isActive = true
-        myScrollView.rightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.rightAnchor, constant: -10).isActive = true
-        myScrollView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -10).isActive = true
+    //MARK:- My functions
+    @objc private func handleButtonWebsite(){
+        print("<----- BUTTON PRESSES ------>")
         
         
-        [currentNotes, buttonWebsite].forEach{myScrollView.addSubview($0)}
         
-        currentNotes.topAnchor.constraint(equalTo: myScrollView.topAnchor, constant: 10).isActive = true
-        currentNotes.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 15).isActive = true
-        currentNotes.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -15).isActive = true
         
-        buttonWebsite.topAnchor.constraint(equalTo: currentNotes.bottomAnchor, constant: 20).isActive = true
-        buttonWebsite.centerXAnchor.constraint(equalTo: myScrollView.centerXAnchor).isActive = true
-    
-        }
-    
-    private func noScrollViewConstraints(){
-        [currentNotes, buttonWebsite].forEach{view.addSubview($0)}
-        currentNotes.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 10).isActive = true
-        currentNotes.leftAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leftAnchor, constant: 10).isActive = true
-        currentNotes.rightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.rightAnchor, constant: -10).isActive = true
-        buttonWebsite.topAnchor.constraint(equalTo: currentNotes.bottomAnchor, constant: 20).isActive = true
-        buttonWebsite.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
     }
+    
+    
+
+ 
+    //MARK:- UI Constraints
+    private func useScrollViewConstraints(){
+//        let screenSize = UIScreen.main.bounds
+        let tempImage = UIImage(data: currentMediaData)
+        currentMedia.image = tempImage
+        
+        [myScrollView2].forEach{view.addSubview($0)}
+        [myStackView].forEach{myScrollView2.addSubview($0)}
+        [currentNotes, currentMedia, buttonWebsite].forEach{myStackView.addArrangedSubview($0)}
+        
+        NSLayoutConstraint.activate([
+            myScrollView2.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            myScrollView2.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            myScrollView2.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            myScrollView2.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            
+            myStackView.topAnchor.constraint(equalTo: myScrollView2.topAnchor),
+            myStackView.bottomAnchor.constraint(equalTo: myScrollView2.bottomAnchor),
+            myStackView.leadingAnchor.constraint(equalTo: myScrollView2.leadingAnchor),
+            myStackView.trailingAnchor.constraint(equalTo: myScrollView2.trailingAnchor),
+            myStackView.widthAnchor.constraint(equalTo: view.widthAnchor),
+            ])
+        }
     
     //MARK:- Swift Functions
     override func viewDidLoad() {
         super.viewDidLoad()
         setupNavigationBar()
         view.backgroundColor = UIColor.lightGray
-
         useScrollViewConstraints()
-//        noScrollViewConstraints()
-
-        
-        //        print("currentNotext.text --> \(currentNotes.text ?? "")")
     }
 }
