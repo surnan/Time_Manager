@@ -7,9 +7,11 @@
 //
 
 import UIKit
-import AVFoundation
+import WebKit
+//import AVFoundation
 
-class ComponentDetailsViewController: UIViewController {
+
+class ComponentDetailsViewController: UIViewController, WKNavigationDelegate {
     
     //MARK:- Parameters passed in
     var myDelegate: manipulatingComponentsListViewController? //passed-in
@@ -36,13 +38,27 @@ class ComponentDetailsViewController: UIViewController {
     }()
     
     var currentMediaData: Data!
+    
     let currentMedia : UIImageView = {
         let tempImage = UIImageView()
         tempImage.backgroundColor = UIColor.yellow
         tempImage.contentMode = .scaleAspectFit
-//        tempImage.contentMode = .scaleToFill
-//        tempImage.contentMode = .scaleAspectFill
+        //        tempImage.contentMode = .scaleToFill
+        //        tempImage.contentMode = .scaleAspectFill
         tempImage.translatesAutoresizingMaskIntoConstraints = false
+        return tempImage
+    }()
+    
+    let thumbImage : UIImageView = {
+        let tempImage = UIImageView()
+        tempImage.backgroundColor = UIColor.yellow
+        tempImage.contentMode = .scaleAspectFit
+        tempImage.isUserInteractionEnabled = true
+        //        tempImage.contentMode = .scaleToFill
+        //        tempImage.contentMode = .scaleAspectFill
+        tempImage.translatesAutoresizingMaskIntoConstraints = false
+        tempImage.heightAnchor.constraint(equalToConstant: 120).isActive = true
+        //        tempImage.widthAnchor.constraint(equalToConstant: 120).isActive = true  //causes constraint warnings in our scenario
         return tempImage
     }()
     
@@ -57,7 +73,7 @@ class ComponentDetailsViewController: UIViewController {
     }()
     
     var myScrollView2: UIScrollView = {
-       let tempScrollView = UIScrollView()
+        let tempScrollView = UIScrollView()
         tempScrollView.backgroundColor = UIColor.black
         tempScrollView.isDirectionalLockEnabled = true
         tempScrollView.bounces = false
@@ -67,7 +83,7 @@ class ComponentDetailsViewController: UIViewController {
     }()
     
     var myStackView : UIStackView = {
-       let tempStackView = UIStackView()
+        let tempStackView = UIStackView()
         tempStackView.translatesAutoresizingMaskIntoConstraints = false
         tempStackView.axis = .vertical
         tempStackView.spacing = 20
@@ -85,29 +101,31 @@ class ComponentDetailsViewController: UIViewController {
     @objc private func handleRightBarButton(){
         print("Right Button Selected")
     }
-
+    
     
     //MARK:- My functions
     @objc private func handleButtonWebsite(){
-        print("<----- BUTTON PRESSES ------>")
-        
-        
-        
-        
+        let webView: WKWebView!
+        webView = WKWebView()
+        myStackView.addArrangedSubview(webView)
+        webView.navigationDelegate = self
+        view = webView
+        let url = URL(string: currentWebsite!)!
+        webView.load(URLRequest(url: url))
+        webView.allowsBackForwardNavigationGestures = true
     }
     
     
-
- 
     //MARK:- UI Constraints
     private func useScrollViewConstraints(){
-//        let screenSize = UIScreen.main.bounds
+        //let screenSize = UIScreen.main.bounds
         let tempImage = UIImage(data: currentMediaData)
         currentMedia.image = tempImage
+        thumbImage.image = tempImage
         
         [myScrollView2].forEach{view.addSubview($0)}
         [myStackView].forEach{myScrollView2.addSubview($0)}
-        [currentNotes, currentMedia, buttonWebsite].forEach{myStackView.addArrangedSubview($0)}
+        [currentNotes, thumbImage, currentMedia, buttonWebsite].forEach{myStackView.addArrangedSubview($0)}
         
         NSLayoutConstraint.activate([
             myScrollView2.leadingAnchor.constraint(equalTo: view.leadingAnchor),
@@ -121,11 +139,26 @@ class ComponentDetailsViewController: UIViewController {
             myStackView.trailingAnchor.constraint(equalTo: myScrollView2.trailingAnchor),
             myStackView.widthAnchor.constraint(equalTo: view.widthAnchor),
             ])
-        }
+    }
+    
+    
+    var myTapGesture: UITapGestureRecognizer!
+    
+    @objc private func handleTap(){
+        print("**** PICTURE TAPPED ****")
+        let tempVC = PictureViewController()
+        
+        tempVC.myImageView = currentMedia
+        navigationController?.pushViewController(tempVC, animated: true)
+    }
     
     //MARK:- Swift Functions
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        myTapGesture = UITapGestureRecognizer(target: self, action: #selector(handleTap))
+        thumbImage.addGestureRecognizer(myTapGesture)
+        
         setupNavigationBar()
         view.backgroundColor = UIColor.lightGray
         useScrollViewConstraints()

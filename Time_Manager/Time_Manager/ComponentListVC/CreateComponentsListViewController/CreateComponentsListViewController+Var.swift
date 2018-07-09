@@ -336,7 +336,6 @@ UITextFieldDelegate, WKUIDelegate {
         super.viewDidAppear(animated)
         print("parentTask = \(parentTask?.name ?? "*EMPTY*")")
     }
-    
 }
 
 
