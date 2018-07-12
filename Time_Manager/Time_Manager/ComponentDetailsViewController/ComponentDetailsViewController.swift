@@ -139,6 +139,8 @@ class ComponentDetailsViewController: UIViewController, WKNavigationDelegate {
             myStackView.trailingAnchor.constraint(equalTo: myScrollView2.trailingAnchor),
             myStackView.widthAnchor.constraint(equalTo: view.widthAnchor),
             ])
+        
+        print("currentNotes ---> \(currentNotes.text)")
     }
     
     

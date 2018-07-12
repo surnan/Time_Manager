@@ -19,7 +19,7 @@ protocol manipulatingComponentsListViewController {
 
 
 class CreateComponentViewController: UIViewController, UIImagePickerControllerDelegate,
-    UINavigationControllerDelegate, UITextViewDelegate,
+UINavigationControllerDelegate, UITextViewDelegate,
 UITextFieldDelegate, WKUIDelegate {
     //MARK:- Parameters passed in
     var delegate: manipulatingComponentsListViewController? //passed-in
