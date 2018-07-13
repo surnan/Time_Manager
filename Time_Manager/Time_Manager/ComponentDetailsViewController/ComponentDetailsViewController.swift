@@ -32,7 +32,6 @@ class ComponentDetailsViewController: UIViewController, WKNavigationDelegate {
         tempTextView.font = UIFont.boldSystemFont(ofSize: 20)
         tempTextView.isEditable = false
         tempTextView.isScrollEnabled = false
-        //tempTextView.isScrollEnabled = true; tempTextView.heightAnchor.constraint(equalToConstant: 300).isActive = true
         tempTextView.translatesAutoresizingMaskIntoConstraints = false
         return tempTextView
     }()
@@ -114,11 +113,22 @@ class ComponentDetailsViewController: UIViewController, WKNavigationDelegate {
     
     //MARK:- My functions
     @objc private func handleButtonWebsite(){
-        let webView: WKWebView!
-        webView = WKWebView()
-        myStackView.addArrangedSubview(webView)
+//        let webView: WKWebView!
+//        webView = WKWebView()
+        let webView = WKWebView()
         webView.navigationDelegate = self
+        
+        
+        
+        navigationItem.title = "HAHAHAHAHAH"
+        UINavigationBar.appearance().prefersLargeTitles = false
+        
+        
         view = webView
+        
+
+        
+        
         let url = URL(string: currentWebsite!)!
         webView.load(URLRequest(url: url))
         webView.allowsBackForwardNavigationGestures = true
@@ -142,10 +152,13 @@ class ComponentDetailsViewController: UIViewController, WKNavigationDelegate {
         
   
         NSLayoutConstraint.activate([
-            myScrollView2.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            myScrollView2.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            myScrollView2.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
-            myScrollView2.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            myScrollView2.leadingAnchor.constraint(equalTo: view.readableContentGuide.leadingAnchor),
+            myScrollView2.trailingAnchor.constraint(equalTo: view.readableContentGuide.trailingAnchor),
+            myScrollView2.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
+
+//            myScrollView2.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            myScrollView2.topAnchor.constraint(equalTo: view.topAnchor),
+            
             
             myStackView.topAnchor.constraint(equalTo: myScrollView2.topAnchor),
             myStackView.bottomAnchor.constraint(equalTo: myScrollView2.bottomAnchor),
@@ -175,24 +188,11 @@ class ComponentDetailsViewController: UIViewController, WKNavigationDelegate {
             currentNotes.isScrollEnabled = true
             notesTextViewHeight.constant = 300
         } else {
-//            currentNotes.isScrollEnabled = false
-            currentNotes.isScrollEnabled = true
+            currentNotes.isScrollEnabled = false
             notesTextViewHeight.constant = newSize.height
         }
         
         notesTextViewHeight.isActive = true
-        view.layoutIfNeeded()
-        
-        //*//        let notesMaxHeight = CGFloat.greatestFiniteMagnitude
-        //*//        let notesCurrentHeight = currentNotes.sizeThatFits(CGSize(width: fixedWidth, height: notesMaxHeight))
-        
-        //        notesTextViewHeight.constant = notesCurrentHeight.height
-        //        notesTextViewHeight.constant = notesCurrentHeight.height
-        //        notesTextViewHeight.isActive = true
-        
-        self.view.layoutIfNeeded()
-        
-        
         print("currentNotes ---> \(currentNotes.text)")
     }
     
