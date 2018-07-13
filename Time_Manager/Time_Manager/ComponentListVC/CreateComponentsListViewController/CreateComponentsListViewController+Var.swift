@@ -325,8 +325,8 @@ UITextFieldDelegate, WKUIDelegate {
         urlTextField.delegate = self
         noteTextField.delegate = self
         setupNavBar()
-        textHeightConstraint = noteTextField.heightAnchor.constraint(equalToConstant: 40)   //variable defined earlier
-        textHeightConstraint.isActive = true
+//        textHeightConstraint = noteTextField.heightAnchor.constraint(equalToConstant: 40)   //variable defined earlier
+//        textHeightConstraint.isActive = true
         setupUserFieldsforDataEntry()
         view.backgroundColor = UIColor.lightBlue
         setupGestures()

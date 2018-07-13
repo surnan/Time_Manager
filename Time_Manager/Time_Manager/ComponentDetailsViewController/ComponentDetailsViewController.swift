@@ -125,7 +125,10 @@ class ComponentDetailsViewController: UIViewController, WKNavigationDelegate {
         
         [myScrollView2].forEach{view.addSubview($0)}
         [myStackView].forEach{myScrollView2.addSubview($0)}
-        [currentNotes, thumbImage, currentMedia, buttonWebsite].forEach{myStackView.addArrangedSubview($0)}
+        
+//        [currentNotes, thumbImage, currentMedia, buttonWebsite].forEach{myStackView.addArrangedSubview($0)}
+        [currentNotes, thumbImage, buttonWebsite].forEach{myStackView.addArrangedSubview($0)}
+        
         
         NSLayoutConstraint.activate([
             myScrollView2.leadingAnchor.constraint(equalTo: view.leadingAnchor),
