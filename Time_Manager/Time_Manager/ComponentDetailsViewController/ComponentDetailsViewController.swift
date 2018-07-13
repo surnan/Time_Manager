@@ -38,6 +38,7 @@ class ComponentDetailsViewController: UIViewController, WKNavigationDelegate {
     }()
     
     var currentMediaData: Data!
+
     
     let currentMedia : UIImageView = {
         let tempImage = UIImageView()
@@ -72,6 +73,10 @@ class ComponentDetailsViewController: UIViewController, WKNavigationDelegate {
         return tempButton
     }()
     
+    
+    
+    //MARK:- Locally declared and locally loaded
+    
     var myScrollView2: UIScrollView = {
         let tempScrollView = UIScrollView()
         tempScrollView.backgroundColor = UIColor.black
@@ -91,6 +96,10 @@ class ComponentDetailsViewController: UIViewController, WKNavigationDelegate {
     }()
     
     var currentWebsite: String?
+    
+    var notesTextViewHeight: NSLayoutConstraint!
+    
+    
     
     //MARK:- Setup Navigation Bar
     private func setupNavigationBar(){
@@ -129,7 +138,9 @@ class ComponentDetailsViewController: UIViewController, WKNavigationDelegate {
 //        [currentNotes, thumbImage, currentMedia, buttonWebsite].forEach{myStackView.addArrangedSubview($0)}
         [currentNotes, thumbImage, buttonWebsite].forEach{myStackView.addArrangedSubview($0)}
         
+        notesTextViewHeight = currentNotes.heightAnchor.constraint(equalToConstant: 500)
         
+  
         NSLayoutConstraint.activate([
             myScrollView2.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             myScrollView2.trailingAnchor.constraint(equalTo: view.trailingAnchor),
@@ -142,6 +153,45 @@ class ComponentDetailsViewController: UIViewController, WKNavigationDelegate {
             myStackView.trailingAnchor.constraint(equalTo: myScrollView2.trailingAnchor),
             myStackView.widthAnchor.constraint(equalTo: view.widthAnchor),
             ])
+        
+        
+//        let fixedWidth = currentNotes.frame.size.width
+//        let fixedWidth = view.frame.width
+        
+//        let fixedWidth = currentNotes.frame.width
+        let fixedWidth = myStackView.frame.size.width
+        let fixedWidth2 = myScrollView2.frame.size.width
+        let fixedWidth3 = currentNotes.frame.size.width
+        let fixedWidth4 = view.frame.size.width
+
+        
+        let newSize = currentNotes.sizeThatFits(CGSize(width: fixedWidth, height: CGFloat.greatestFiniteMagnitude))
+        let newSize2 = currentNotes.sizeThatFits(CGSize(width: fixedWidth2, height: CGFloat.greatestFiniteMagnitude))
+        let newSize3 = currentNotes.sizeThatFits(CGSize(width: fixedWidth3, height: CGFloat.greatestFiniteMagnitude))
+        let newSize4 = currentNotes.sizeThatFits(CGSize(width: fixedWidth4, height: CGFloat.greatestFiniteMagnitude))
+        
+        
+        if newSize4.height > 300 {
+            currentNotes.isScrollEnabled = true
+            notesTextViewHeight.constant = 300
+        } else {
+//            currentNotes.isScrollEnabled = false
+            currentNotes.isScrollEnabled = true
+            notesTextViewHeight.constant = newSize.height
+        }
+        
+        notesTextViewHeight.isActive = true
+        view.layoutIfNeeded()
+        
+        //*//        let notesMaxHeight = CGFloat.greatestFiniteMagnitude
+        //*//        let notesCurrentHeight = currentNotes.sizeThatFits(CGSize(width: fixedWidth, height: notesMaxHeight))
+        
+        //        notesTextViewHeight.constant = notesCurrentHeight.height
+        //        notesTextViewHeight.constant = notesCurrentHeight.height
+        //        notesTextViewHeight.isActive = true
+        
+        self.view.layoutIfNeeded()
+        
         
         print("currentNotes ---> \(currentNotes.text)")
     }

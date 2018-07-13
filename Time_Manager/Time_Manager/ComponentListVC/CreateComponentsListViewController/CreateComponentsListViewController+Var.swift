@@ -101,6 +101,7 @@ UITextFieldDelegate, WKUIDelegate {
             if newSize.height > 200 {
                 //before getting here, you would have built up the height to 200 from hitting the "else" clause
                 noteTextField.isScrollEnabled = true
+                textHeightConstraint.constant = 200
             } else {
                 noteTextField.isScrollEnabled = false
                 self.textHeightConstraint.constant = newSize.height
@@ -325,8 +326,10 @@ UITextFieldDelegate, WKUIDelegate {
         urlTextField.delegate = self
         noteTextField.delegate = self
         setupNavBar()
-//        textHeightConstraint = noteTextField.heightAnchor.constraint(equalToConstant: 40)   //variable defined earlier
-//        textHeightConstraint.isActive = true
+        textHeightConstraint = noteTextField.heightAnchor.constraint(equalToConstant: 40)   //variable defined earlier
+        
+        
+        textHeightConstraint.isActive = true
         setupUserFieldsforDataEntry()
         view.backgroundColor = UIColor.lightBlue
         setupGestures()
