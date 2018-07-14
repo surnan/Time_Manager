@@ -11,6 +11,8 @@ import WebKit
 //import AVFoundation
 
 
+
+//class ComponentDetailsViewController: UIViewController, WKUIDelegate {  //this code is commented out
 class ComponentDetailsViewController: UIViewController, WKNavigationDelegate {
     
     //MARK:- Parameters passed in
@@ -113,25 +115,24 @@ class ComponentDetailsViewController: UIViewController, WKNavigationDelegate {
     
     //MARK:- My functions
     @objc private func handleButtonWebsite(){
-//        let webView: WKWebView!
-//        webView = WKWebView()
         let webView = WKWebView()
-        webView.navigationDelegate = self
-        
-        
-        
+        webView.navigationDelegate = self   //class protocol: WKNavigationDelegate
         navigationItem.title = "HAHAHAHAHAH"
-        UINavigationBar.appearance().prefersLargeTitles = false
-        
-        
         view = webView
-        
-
-        
-        
+//        self.navigationController?.navigationBar.prefersLargeTitles = false
         let url = URL(string: currentWebsite!)!
         webView.load(URLRequest(url: url))
-        webView.allowsBackForwardNavigationGestures = true
+//        //        webView.allowsBackForwardNavigationGestures = true    //
+        
+        
+//        var webView: WKWebView!
+//        let webConfiguration = WKWebViewConfiguration()
+//        webView = WKWebView(frame: .zero, configuration: webConfiguration)
+//        webView.uiDelegate = self
+//        view = webView
+//        let myURL = URL(string: (currentComponentItem?.cWebsite)!)
+//        let myURLRequest = URLRequest(url: myURL!)
+//        webView.load(myURLRequest)
     }
     
     
@@ -217,5 +218,10 @@ class ComponentDetailsViewController: UIViewController, WKNavigationDelegate {
         setupNavigationBar()
         view.backgroundColor = UIColor.lightGray
         useScrollViewConstraints()
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(true)
+        self.navigationController?.navigationBar.prefersLargeTitles = true
     }
 }
