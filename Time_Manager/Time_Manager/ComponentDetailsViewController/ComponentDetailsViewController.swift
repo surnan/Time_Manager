@@ -197,6 +197,13 @@ class ComponentDetailsViewController: UIViewController, WKNavigationDelegate {
         print("currentNotes ---> \(currentNotes.text)")
     }
     
+    private func setupUI(){
+        
+    }
+    
+    
+    
+    
     
     var myTapGesture: UITapGestureRecognizer!
     
@@ -217,7 +224,9 @@ class ComponentDetailsViewController: UIViewController, WKNavigationDelegate {
         
         setupNavigationBar()
         view.backgroundColor = UIColor.lightGray
-        useScrollViewConstraints()
+//        useScrollViewConstraints()
+        setupUI()
+        
     }
     
     override func viewDidAppear(_ animated: Bool) {
