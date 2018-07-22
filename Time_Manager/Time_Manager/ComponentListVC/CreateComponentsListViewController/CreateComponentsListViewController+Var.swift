@@ -182,6 +182,8 @@ UITextFieldDelegate, WKUIDelegate {
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]){
         iconImage.image = info[UIImagePickerControllerEditedImage] != nil ? info[UIImagePickerControllerEditedImage] as? UIImage :
             info[UIImagePickerControllerOriginalImage] as? UIImage
+        
+
         dismiss(animated: true, completion: nil)
     }
     

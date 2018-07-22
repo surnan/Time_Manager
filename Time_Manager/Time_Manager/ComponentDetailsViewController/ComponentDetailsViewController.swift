@@ -199,6 +199,17 @@ class ComponentDetailsViewController: UIViewController, WKNavigationDelegate {
     
     private func setupUI(){
         
+        
+        
+        [buttonWebsite].forEach{view.addSubview($0)}
+        
+        
+        NSLayoutConstraint.activate([
+            buttonWebsite.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant:  -20),
+            buttonWebsite.centerXAnchor.constraint(equalTo: view.centerXAnchor)
+        ])
+        
+        
     }
     
     
@@ -223,9 +234,9 @@ class ComponentDetailsViewController: UIViewController, WKNavigationDelegate {
         thumbImage.addGestureRecognizer(myTapGesture)
         
         setupNavigationBar()
-        view.backgroundColor = UIColor.lightGray
-//        useScrollViewConstraints()
-        setupUI()
+        view.backgroundColor = UIColor.white
+        useScrollViewConstraints()
+//        setupUI()
         
     }
     
