@@ -80,17 +80,39 @@ extension TasksListViewController {
     
 
     
+    @objc func handleLeftSwipe(){
+        print("FUNC handleLeftSwipe  fired")
+    }
     
     override func tableView(_ tableView: UITableView,
                             leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration?
     {
+        
         let closeAction = UIContextualAction(style: .normal, title:  "Completed", handler: { (ac:UIContextualAction, view:UIView, success:(Bool) -> Void) in
+            
+//////////////////////  Wild_Stuff
+//////////////////////  Wild_Stuff
+            
+            let tempController = Wild_Stuff()
+            self.navigationController?.pushViewController(tempController, animated: true)
+            
+
+            
+//////////////////////  Wild_Stuff
+//////////////////////  Wild_Stuff
+            
             print("OK, marked as Completed")
             success(true)
         })
+        
         closeAction.backgroundColor = .purple
         print("Closing --> \(tasks[indexPath.row])")
+
+        print("!!!LEFT SWYPE REGISTERED!!!")
+
+
         return UISwipeActionsConfiguration(actions: [closeAction])
+        
     }
 }
 
