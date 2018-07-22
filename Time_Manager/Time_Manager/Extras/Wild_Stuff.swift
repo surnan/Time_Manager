@@ -12,6 +12,11 @@ import MobileCoreServices  // --> kUTTypeMovie
 class Wild_Stuff: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
     
+    func printCoreDataPath(){
+        let urls = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
+        print(urls[urls.count-1] as URL)
+    }
+    
     var myLabel : UILabel = {
         var tempLabel = UILabel()
         tempLabel.text = "WILD_STUFF VIEW CONTROLLER LOADED"
@@ -39,30 +44,91 @@ class Wild_Stuff: UIViewController, UIImagePickerControllerDelegate, UINavigatio
         return tempButton
     }()
     
+    
+    
+    var myImagePickerController: UIImagePickerController = {
+        let tempPicker = UIImagePickerController()
+        tempPicker.sourceType = .photoLibrary
+        tempPicker.allowsEditing = true
+//        if let allMedia = UIImagePickerController.availableMediaTypes(for: .photoLibrary) {
+//            tempPicker.mediaTypes = allMedia
+//        }
+        return tempPicker
+    }()
+    
+    
+    var myImagePickerController2: UIImagePickerController = {
+        let tempPicker = UIImagePickerController()
+        tempPicker.sourceType = .photoLibrary
+        tempPicker.mediaTypes = [kUTTypeMovie as String]
+        tempPicker.allowsEditing = false
+//        if let allMedia = UIImagePickerController.availableMediaTypes(for: .photoLibrary) {
+//            tempPicker.mediaTypes = allMedia
+//        }
+        return tempPicker
+    }()
+
+    
+    
     //MARK:- Button Action Code
     
     @objc func handleAlbumButtonPressed(){
-        let videoPicker = UIImagePickerController()
-        videoPicker.delegate = self
-        videoPicker.sourceType = .photoLibrary  //enum [camera, savedPhotosAlbum ]
-//        videoPicker.mediaTypes = [kUTTypeMovie as String]
-        self.present(videoPicker, animated: true, completion: nil)
-        
+//        let videoPicker = UIImagePickerController()
+//        videoPicker.delegate = self
+//        videoPicker.sourceType = .photoLibrary  //enum [camera, savedPhotosAlbum ]
+////        videoPicker.mediaTypes = [kUTTypeMovie as String]
+//        self.present(videoPicker, animated: true, completion: nil)
+
+        self.present(myImagePickerController, animated: true, completion: nil)
     }
 
     @objc func handleVideoButtonPressed(){
-        let videoPicker = UIImagePickerController()
-        videoPicker.delegate = self
-        videoPicker.sourceType = .photoLibrary  //enum [camera, savedPhotosAlbum ]
-        videoPicker.mediaTypes = [kUTTypeMovie as String]
-        self.present(videoPicker, animated: true, completion: nil)
+//        let videoPicker = UIImagePickerController()
+//        videoPicker.delegate = self
+//        videoPicker.sourceType = .photoLibrary  //enum [camera, savedPhotosAlbum ]
+//        videoPicker.mediaTypes = [kUTTypeMovie as String]
+//        self.present(videoPicker, animated: true, completion: nil)
+        
+        self.present(myImagePickerController2, animated: true, completion: nil)
+        
     }
 
     
     
+    //MARK:- Image Picker Functions
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]){
+
+        if picker == myImagePickerController {
+            print("PICKER #1")
+        } else {
+            print("PICKER #2")
+            
+            var videoURL: NSURL?
+            videoURL = info["UIImagePickerControllerReferenceURL"] as? NSURL
+            print("video URL = \(videoURL!)")
+            
+        }
+        
+        //        iconImage.image = info[UIImagePickerControllerEditedImage] != nil ? info[UIImagePickerControllerEditedImage] as? UIImage :
+//            info[UIImagePickerControllerOriginalImage] as? UIImage
+        
+        
+        dismiss(animated: true, completion: nil)
+    }
+    
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController){
+        dismiss(animated: true, completion: nil)
+    }
+    
+    
+    
+    //MARK:- DEFAULT SWIFT FUNCTIONS
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = UIColor.lightBlue
+        
+        myImagePickerController.delegate = self
+        myImagePickerController2.delegate = self
         
         myAlbumButton.addTarget(self, action: #selector(handleAlbumButtonPressed), for: .touchDown)
         myVideoButton.addTarget(self, action: #selector(handleVideoButtonPressed), for: .touchDown)

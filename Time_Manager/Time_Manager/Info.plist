@@ -3,11 +3,13 @@
 <plist version="1.0">
 <dict>
 	<key>NSPhotoLibraryAddUsageDescription</key>
-	<string>Set the Background</string>
+	<string>&quot;2 - Set the Background&quot;</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>&quot;Hoping to use your location when this app runs.  For Web Browser laounch&quot;</string>
 	<key>NSPhotoLibraryUsageDescription</key>
-	<string>Set the Background</string>
+	<string>&quot;1 - Set the Background&quot;</string>
+	<key>NSBluetoothPeripheralUsageDescription</key>
+	<string></string>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
 	<key>CFBundleExecutable</key>
